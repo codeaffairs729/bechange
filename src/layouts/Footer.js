@@ -1,11 +1,22 @@
-import { Box, Button, Divider, Grid, Typography } from '@mui/material';
-import { Container } from '@mui/system';
+import {
+  Box,
+  Button,
+  Divider,
+  Grid,
+  Typography,
+  Container,
+} from '@mui/material';
+import FooterItems from '../components/FooterItems';
+import Subscribe from '../components/Subscribe';
 
 export default function Footer() {
   return (
     <Box component={'footer'}>
       <Divider />
-      <Container sx={{ textAlign: 'center', width: '90%' }}>
+
+      <Container sx={{ width: '90%' }}>
+        <Subscribe />
+        <FooterItems />
         <Divider />
         <Grid container sx={{ placeContent: 'center', mt: 1 }}>
           <Grid item xs={6} sx={{ textAlign: 'left' }}>

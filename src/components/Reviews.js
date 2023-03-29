@@ -8,6 +8,7 @@ import {
   Container,
 } from '@mui/material';
 import { Person } from '@mui/icons-material';
+import SectionHeading from './typography/SectionHeading';
 
 export default function Reviews() {
   const persons = [
@@ -30,11 +31,9 @@ export default function Reviews() {
   return (
     <Container sx={{ width: '90%', my: 5 }}>
       <Box sx={{ textAlign: 'center', mb: 3 }}>
-        <Typography variant='h4' fontWeight={900}>
-          What others say
-        </Typography>
+        <SectionHeading title={'What others say'} />
       </Box>
-      <Grid container sx={{ width: '90%', m: 'auto' }}>
+      <Grid container sx={{ width: '90%', mx: 'auto' }}>
         {persons.map(person => {
           return (
             <Grid item xs={4} key={person.id}>

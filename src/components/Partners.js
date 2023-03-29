@@ -1,4 +1,5 @@
-import { Container, Grid, Typography, Box } from '@mui/material';
+import { Container, Grid } from '@mui/material';
+import SectionHeading from './typography/SectionHeading';
 
 export default function Partners() {
   const items = [
@@ -26,9 +27,7 @@ export default function Partners() {
 
   return (
     <Container sx={{ width: '90%', my: 5, textAlign: 'center' }}>
-      <Typography variant='h4' fontWeight={900}>
-        Quality Partners
-      </Typography>
+      <SectionHeading title={'Quality Partners'} />
       <Grid
         container
         sx={{

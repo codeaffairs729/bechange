@@ -43,6 +43,10 @@ export default function Compare() {
   return (
     <Container sx={{ width: '90%', mx: 'auto', my: 5, textAlign: 'center' }}>
       <SectionHeading title={'Compare'} />
+      <Typography variant='body2' sx={{ mb: 5 }}>
+        Truly fair, ethical and ecological. Based on our quality standards you
+        can select from the following
+      </Typography>
       <Grid container spacing={5}>
         {items.map(item => {
           return (

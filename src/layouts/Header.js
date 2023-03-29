@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppBar, Box, Button, Container, Grid } from '@mui/material';
 import ComparePopover from './ComparePopover';
+import { KeyboardArrowDown } from '@mui/icons-material';
 
 const navItems = [
   {
@@ -43,7 +44,7 @@ export default function Header() {
           <Grid item xs={4} sx={{ textAlign: 'right', m: 'auto' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Button ref={ref} onClick={() => setPopOverOpen(true)}>
-                Compare
+                Compare <KeyboardArrowDown />
               </Button>
               {navItems.map(item => {
                 return (

@@ -1,6 +1,6 @@
 import { MenuItem, MenuList, Popover } from '@mui/material';
 
-export default function ComparePopover({ anchorEl, onClose, open }) {
+export default function ComparePopover({ anchorEl, onClose, open, navigate }) {
   const menuItems = [
     {
       id: 0,
@@ -50,7 +50,9 @@ export default function ComparePopover({ anchorEl, onClose, open }) {
         }}
       >
         {menuItems.map(item => (
-          <MenuItem key={item.id}>{item.title}</MenuItem>
+          <MenuItem key={item.id} onClick={() => navigate(item.link)}>
+            {item.title}
+          </MenuItem>
         ))}
       </MenuList>
     </Popover>

@@ -65,6 +65,7 @@ export default function Header() {
         anchorEl={ref.current}
         open={popOverOpen}
         onClose={() => setPopOverOpen(false)}
+        navigate={navigate}
       />
     </AppBar>
   );

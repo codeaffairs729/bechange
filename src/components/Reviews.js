@@ -5,6 +5,7 @@ import {
   Grid,
   Typography,
   Avatar,
+  Container,
 } from '@mui/material';
 import { Person } from '@mui/icons-material';
 
@@ -27,7 +28,7 @@ export default function Reviews() {
     },
   ];
   return (
-    <Box sx={{ my: 5 }}>
+    <Container sx={{ width: '90%', my: 5 }}>
       <Box sx={{ textAlign: 'center', mb: 3 }}>
         <Typography variant='h4' fontWeight={900}>
           What others say
@@ -68,6 +69,6 @@ export default function Reviews() {
           );
         })}
       </Grid>
-    </Box>
+    </Container>
   );
 }

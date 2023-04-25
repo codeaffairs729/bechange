@@ -10,17 +10,17 @@ export default function ComparePopover({ anchorEl, onClose, open, navigate }) {
     {
       id: 1,
       title: 'Banking',
-      link: '/',
+      link: '/banking',
     },
     {
       id: 2,
       title: 'Telecom',
-      link: '/',
+      link: '/telecom',
     },
     {
       id: 3,
       title: 'Insurance',
-      link: '/',
+      link: '/insurance',
     },
   ];
   return (

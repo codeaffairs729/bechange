@@ -4,14 +4,26 @@ import Footer from './Footer';
 import Header from './Header';
 import Energy from '../screens/Energy';
 import Home from '../screens/Home';
+import Mobile from '../screens/Mobile';
+
+const RenderPage = () => {
+  const { screen } = useParams();
+  switch (screen) {
+    case 'energy':
+      return <Energy />;
+    case 'telecom':
+      return <Mobile />;
+    default:
+      return <Home />;
+  }
+};
 
 export default function MainLayout() {
-  const { screen } = useParams();
   return (
     <Box>
       <CssBaseline />
       <Header />
-      {screen === 'energy' ? <Energy /> : <Home />}
+      <RenderPage />
       <Footer />
     </Box>
   );

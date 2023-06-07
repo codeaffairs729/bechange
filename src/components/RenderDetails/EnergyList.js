@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   Accordion,
+  AccordionDetails,
   AccordionSummary,
   Box,
   Button,
@@ -8,6 +9,7 @@ import {
 } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { PieChart } from 'react-minimal-pie-chart';
+import EnergyDesc from './EnergyDesc';
 
 export default function EnergyList({ tariffData }) {
   const [expanded, setExpanded] = useState(false);
@@ -16,8 +18,8 @@ export default function EnergyList({ tariffData }) {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const RenderPieChart = energyMix => {
-    const pieData = energyMix?.energyMix.map(energy => {
+  const RenderPieChart = ({ energyMix, size, showLabel }) => {
+    const pieData = energyMix?.map(energy => {
       return {
         title: energy.source,
         value: energy.percent,
@@ -38,7 +40,11 @@ export default function EnergyList({ tariffData }) {
       <PieChart
         data={pieData}
         lineWidth={50}
-        style={{ width: '50px', marginRight: '100px' }}
+        label={({ dataEntry }) => showLabel && `${dataEntry.value}%`}
+        labelPosition={100 - 60 / 2}
+        style={{ width: size, marginRight: '100px' }}
+        segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
+        animate
       />
     );
   };
@@ -62,7 +68,6 @@ export default function EnergyList({ tariffData }) {
         </AccordionSummary>
       </Accordion>
       {tariffData?.map(data => {
-        console.log(data);
         return (
           <Accordion
             key={data?.id}
@@ -74,20 +79,23 @@ export default function EnergyList({ tariffData }) {
               aria-controls={`panel${data?.id}bh-content`}
               id={`panel${data?.id}bh-header`}
             >
-              <Typography sx={{ width: '23%', flexShrink: 0 }}>
+              <Typography variant='h6' sx={{ width: '23%', flexShrink: 0 }}>
                 {data.name}
               </Typography>
-              <Typography sx={{ width: '23%', flexShrink: 0 }}>
+              <Typography variant='h6' sx={{ width: '23%', flexShrink: 0 }}>
                 {Math.round(data.price.basePrice * 100) / 100} &euro;/month
               </Typography>
-              <Typography sx={{ width: '23%', flexShrink: 0 }}>
+              <Typography variant='h6' sx={{ width: '23%', flexShrink: 0 }}>
                 {Math.round(data.price.workingPrice * 100) / 100} &euro;/month
               </Typography>
-              <RenderPieChart energyMix={data.energyMix} />
+              <RenderPieChart energyMix={data.energyMix} size={'50px'} />
               <Button variant='contained' color='tertiary'>
                 Wechseln
               </Button>
             </AccordionSummary>
+            <AccordionDetails>
+              <EnergyDesc data={data} RenderPieChart={RenderPieChart} />
+            </AccordionDetails>
           </Accordion>
         );
       })}

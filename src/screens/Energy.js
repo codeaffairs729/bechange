@@ -1,4 +1,5 @@
-import { Container } from '@mui/material';
+import { useState } from 'react';
+import { Container, Divider } from '@mui/material';
 import Calculator from '../components/Calculator';
 
 export default function Energy() {
@@ -6,9 +7,13 @@ export default function Energy() {
     container: { width: '90%', mx: 'auto', mt: '8em', mb: '3em' },
   };
 
+  const [tariffData, setTariffData] = useState([]);
+
   return (
     <Container sx={style.container}>
-      <Calculator />
+      <Calculator setTariffData={setTariffData} />
+      <Divider sx={{ my: 5 }} />
+      {console.log(tariffData)}
     </Container>
   );
 }

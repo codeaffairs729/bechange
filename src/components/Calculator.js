@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Paper,
   Box,
@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import calcBg from '../assets/images/other/calculatorBg.jpg';
+import data from '../api/switch-for-climate-api';
 
 export const MuiSwitchLarge = styled(Switch)(({ theme }) => ({
   width: 68,
@@ -34,10 +35,17 @@ export const MuiSwitchLarge = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export default function Calculator() {
+export default function Calculator({ setTariffData }) {
   const [switchPrivate, setSwitchPrivate] = useState(true);
   const [switchPower, setSwitchPower] = useState(true);
   const [numPers, setNumPers] = useState(0);
+  const [consumption, setConsumption] = useState(0);
+
+  const initState = {
+    plz: '',
+  };
+
+  const [formData, setFormData] = useState(initState);
 
   const style = {
     calculator: {
@@ -71,6 +79,43 @@ export default function Calculator() {
     }
   };
 
+  const handleClick = () => {
+    data.fetchLocations(plz).then(res =>
+      res?.[0].operatorIds.map(operatorId =>
+        data
+          .fetchSwitchRates({
+            energy: 'power',
+            consumption,
+            zipCode: plz,
+            city: res?.[0].city,
+            operatorId,
+          })
+          .then(tariffInfo => setTariffData(tariffInfo?.switchRates))
+      )
+    );
+  };
+
+  const handleChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const { plz } = formData;
+
+  useEffect(() => {
+    switch (numPers) {
+      case 1:
+        return setConsumption(1600);
+      case 2:
+        return setConsumption(2600);
+      case 3:
+        return setConsumption(3300);
+      case 4:
+        return setConsumption(3900);
+      default:
+        return setConsumption(0);
+    }
+  }, [numPers]);
+
   return (
     <Paper sx={style.calculator}>
       <Grid container spacing={5} sx={{ w: 300, justifyContent: 'center' }}>
@@ -95,8 +140,11 @@ export default function Calculator() {
       >
         <Grid item xs={4}>
           <TextField
+            name='plz'
             label={'Deine PLZ'}
             sx={{ bgcolor: 'background.light' }}
+            value={plz}
+            onChange={handleChange}
             fullWidth
           />
         </Grid>
@@ -154,6 +202,7 @@ export default function Calculator() {
             label={'KWh/Jahr'}
             sx={{ bgcolor: 'background.light' }}
             type='number'
+            value={consumption}
             fullWidth
           />
         </Grid>
@@ -162,6 +211,7 @@ export default function Calculator() {
             variant='contained'
             color={switchPower ? 'tertiary' : 'yellow'}
             size='large'
+            onClick={handleClick}
           >
             Compare
           </Button>

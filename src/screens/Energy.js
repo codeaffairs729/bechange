@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Container, Divider } from '@mui/material';
 import Calculator from '../components/Calculator';
+import EnergyList from '../components/RenderDetails/EnergyList';
 
 export default function Energy() {
   const style = {
@@ -13,7 +14,7 @@ export default function Energy() {
     <Container sx={style.container}>
       <Calculator setTariffData={setTariffData} />
       <Divider sx={{ my: 5 }} />
-      {console.log(tariffData)}
+      <EnergyList tariffData={tariffData} />
     </Container>
   );
 }

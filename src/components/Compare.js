@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
-import SectionHeading from './typography/SectionHeading';
 import { SolarPower, Savings, SimCard, GppGood } from '@mui/icons-material';
 
 export default function Compare() {
@@ -10,29 +9,29 @@ export default function Compare() {
   const items = [
     {
       id: 0,
-      title: 'Energy',
-      desc: '24/7 Clean Energy. Independent',
-      link: '/energy',
+      title: 'Energie',
+      desc: 'Ökostrom: wirklich und unabhängig',
+      link: '/energie',
       icon: <SolarPower sx={iconStyle} />,
     },
     {
       id: 1,
       title: 'Banking',
-      desc: 'Fair, Ethical and Ecological',
-      link: '/',
+      desc: "Sozial-okoligisches Konto für's Gemeinwohl",
+      link: '/banking',
       icon: <Savings sx={iconStyle} />,
     },
     {
       id: 2,
-      title: 'Telecommunication',
-      desc: 'Climate Action, Data Protection, Fairness and Transparency',
+      title: 'Mobilfunk',
+      desc: 'Fairer Klima- und Datenschutz',
       link: '/',
       icon: <SimCard sx={iconStyle} />,
     },
     {
       id: 3,
-      title: 'Insurance',
-      desc: "Don't Bank the Bomb. Bank for Good",
+      title: 'Versicherung',
+      desc: 'Leistung für einen nachhaltigen Lebensstil',
       link: '/',
       icon: <GppGood sx={iconStyle} />,
     },
@@ -42,11 +41,6 @@ export default function Compare() {
 
   return (
     <Container sx={{ width: '90%', mx: 'auto', my: 5, textAlign: 'center' }}>
-      <SectionHeading title={'Compare'} />
-      <Typography variant='body2' sx={{ mb: 5 }}>
-        Truly fair, ethical and ecological. Based on our quality standards you
-        can select from the following
-      </Typography>
       <Grid container spacing={5}>
         {items.map(item => {
           return (
@@ -63,7 +57,9 @@ export default function Compare() {
                 {item.icon}
                 <Typography variant='h5'>{item.title}</Typography>
                 <Typography variant='body2'>{item.desc}</Typography>
-                <Button onClick={() => navigate(item.link)}>Providers</Button>
+                <Button onClick={() => navigate(item.link)}>
+                  Zum Vergleich
+                </Button>
               </Box>
             </Grid>
           );

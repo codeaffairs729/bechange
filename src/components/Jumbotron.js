@@ -9,19 +9,20 @@ export default function Jumbotron() {
     left: '50%',
     transform: 'translate(-50%,-50%)',
     textAlign: 'center',
+    width: 1,
   };
   return (
     <Parallax bgImage={'/cover.jpeg'} strength={500}>
       <Box sx={{ height: 500 }}>
         <Box sx={insideStyles}>
           <Typography variant='h4' fontWeight={900} color='primary.light'>
-            Your Transition Was Never Easier
+            Dein wirklich grünes Vergleichsportal
           </Typography>
           <Typography variant='h5' color='primary.light' fontStyle={'italic'}>
-            Stop compromising on unethical Business
+            Transparent, sicher &amp; einfach
           </Typography>
           <Button variant='contained' sx={{ mt: 5 }}>
-            Learn More
+            Vergleiche
           </Button>
         </Box>
       </Box>

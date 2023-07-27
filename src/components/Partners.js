@@ -1,5 +1,4 @@
-import { Container, Grid } from '@mui/material';
-import SectionHeading from './typography/SectionHeading';
+import { Container, Grid, Typography } from '@mui/material';
 
 export default function Partners() {
   const items = [
@@ -26,23 +25,33 @@ export default function Partners() {
   ];
 
   return (
-    <Container sx={{ width: '90%', my: 5, textAlign: 'center' }}>
-      <SectionHeading title={'Quality Partners'} />
-      <Grid
-        container
-        sx={{
-          width: '80%',
-          m: 'auto',
-          placeItems: 'center',
-        }}
-      >
-        {items.map(item => {
-          return (
-            <Grid item xs={3} key={item.id}>
-              <img width={150} src={item.src} alt={item.alt} />
-            </Grid>
-          );
-        })}
+    <Container sx={{ my: 5 }}>
+      <Grid container spacing={10} sx={{ placeItems: 'center' }}>
+        <Grid item xs={4}>
+          <Typography variant='h6' fontWeight={900}>
+            Wichtigste Qualitätszeichen
+          </Typography>
+          <Typography>
+            Alle gelisteten Anbieter wurden nach strengsten
+            Nachhaltigkeitskriterien bewertet.
+          </Typography>
+        </Grid>
+        <Grid item xs={8}>
+          <Grid
+            container
+            sx={{
+              placeItems: 'center',
+            }}
+          >
+            {items.map(item => {
+              return (
+                <Grid item xs={3} key={item.id}>
+                  <img width={150} src={item.src} alt={item.alt} />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Grid>
       </Grid>
     </Container>
   );

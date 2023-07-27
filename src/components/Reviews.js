@@ -14,29 +14,32 @@ export default function Reviews() {
   const persons = [
     {
       id: 0,
-      name: 'Anja Bayreuther',
-      job: 'Partner of Polarstern',
+      name: 'Person 1',
+      job: 'CEO/Company',
     },
     {
       id: 1,
-      name: 'Author Name',
-      job: 'Marketing at EthikBank',
+      name: 'Person 2',
+      job: 'CEO/Company',
     },
     {
       id: 2,
-      name: 'Author Name',
-      job: 'Communication of WEtell',
+      name: 'Person 3',
+      job: 'CEO/Company',
     },
   ];
   return (
     <Container sx={{ width: '90%', my: 5 }}>
       <Box sx={{ textAlign: 'center', mb: 3 }}>
-        <SectionHeading title={'What others say'} />
+        <SectionHeading title={'Referenzen'} />
       </Box>
-      <Grid container sx={{ width: '90%', mx: 'auto' }}>
+      <Grid
+        container
+        sx={{ justifyContent: 'space-between', alignItems: 'center' }}
+      >
         {persons.map(person => {
           return (
-            <Grid item xs={4} key={person.id}>
+            <Grid item key={person.id}>
               <Paper variant='outlined' sx={{ maxWidth: 345, p: 3 }}>
                 <CardContent>
                   <Typography variant='body1'>

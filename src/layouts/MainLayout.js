@@ -9,9 +9,9 @@ import Mobile from '../screens/Mobile';
 const RenderPage = () => {
   const { screen } = useParams();
   switch (screen) {
-    case 'energy':
+    case 'energie':
       return <Energy />;
-    case 'telecom':
+    case 'mobile-funk':
       return <Mobile />;
     default:
       return <Home />;

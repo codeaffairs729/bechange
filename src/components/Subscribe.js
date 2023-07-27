@@ -22,7 +22,7 @@ export default function Subscribe() {
               <TextField
                 label={'Enter your email'}
                 type={'email'}
-                sx={{ background: 'background' }}
+                sx={{ background: 'white' }}
                 fullWidth
               />
             </Grid>

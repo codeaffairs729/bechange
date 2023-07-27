@@ -1,57 +1,53 @@
-import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AppBar, Box, Button, Container, Grid } from '@mui/material';
-import ComparePopover from './ComparePopover';
-import { KeyboardArrowDown } from '@mui/icons-material';
 
 const navItems = [
   {
-    id: 9,
-    title: 'Quality',
-    link: '/',
+    title: 'Energie',
+    slug: 'energie',
   },
   {
-    id: 1,
-    title: 'About',
-    link: '/',
+    title: 'Banking',
+    slug: 'banking',
   },
   {
-    id: 2,
-    title: 'Contact',
-    link: '/',
+    title: 'Mobilfunk',
+    slug: 'mobile-funk',
+  },
+  {
+    title: 'Qualität',
+    slug: 'qualitaet',
+  },
+  {
+    title: 'Blog',
+    slug: 'blug',
   },
 ];
 
 export default function Header() {
   const navigate = useNavigate();
-  const ref = useRef(null);
-
-  const [popOverOpen, setPopOverOpen] = useState(false);
-
+  const { screen } = useParams();
   return (
     <AppBar color='background'>
       <Container sx={{ width: '90%' }}>
         <Grid container spacing={5}>
-          <Grid item xs={8}>
+          <Grid item xs={6}>
             <img
               width={'150px'}
-              src='/logo.jpeg'
+              src='/logo_final.svg'
               style={{ padding: 5, cursor: 'pointer' }}
               alt='BeChange Logo'
               onClick={() => navigate('/')}
             />
           </Grid>
-          <Grid item xs={4} sx={{ textAlign: 'right', m: 'auto' }}>
+          <Grid item xs={6} sx={{ textAlign: 'right', m: 'auto' }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Button ref={ref} onClick={() => setPopOverOpen(true)}>
-                Compare <KeyboardArrowDown />
-              </Button>
-              {navItems.map(item => {
+              {navItems.map((item, i) => {
                 return (
                   <Button
-                    variant={item.title === 'Contact' ? 'contained' : 'muted'}
-                    key={item.id}
-                    onClick={() => navigate(item.link)}
+                    variant={item.slug === screen ? 'contained' : 'muted'}
+                    key={i}
+                    onClick={() => navigate('/' + item.slug)}
                   >
                     {item.title}
                   </Button>
@@ -61,12 +57,6 @@ export default function Header() {
           </Grid>
         </Grid>
       </Container>
-      <ComparePopover
-        anchorEl={ref.current}
-        open={popOverOpen}
-        onClose={() => setPopOverOpen(false)}
-        navigate={navigate}
-      />
     </AppBar>
   );
 }

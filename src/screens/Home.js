@@ -1,4 +1,4 @@
-import { Box, Divider } from '@mui/material';
+import { Box, Container, Divider } from '@mui/material';
 import React from 'react';
 import Compare from '../components/Compare';
 import Jumbotron from '../components/Jumbotron';
@@ -14,7 +14,7 @@ export default function Home() {
       <Divider />
       <Partners />
       <Divider />
-      <Box sx={{ width: '80%', mx: 'auto' }}>
+      <Container>
         <AdSection
           title={'Blog-Artikel'}
           desc={
@@ -23,7 +23,7 @@ export default function Home() {
           text1={'Lorem ipsum dolor sit amet consectetur adipisicing elit.'}
           text2={'Lorem ipsum dolor sit amet consectetur adipisicing elit.'}
         />
-      </Box>
+      </Container>
       <Divider />
       <Reviews />
     </Box>

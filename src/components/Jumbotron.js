@@ -12,7 +12,7 @@ export default function Jumbotron() {
     width: 1,
   };
   return (
-    <Parallax bgImage={'/cover.jpeg'} strength={500}>
+    <Parallax bgImage={'/cover.png'} strength={500}>
       <Box sx={{ height: 500 }}>
         <Box sx={insideStyles}>
           <Typography variant='h4' fontWeight={900} color='primary.light'>

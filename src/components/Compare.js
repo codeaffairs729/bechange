@@ -1,39 +1,35 @@
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Container, Grid, Typography } from '@mui/material';
-import { SolarPower, Savings, SimCard, GppGood } from '@mui/icons-material';
+import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
 
 export default function Compare() {
-  const iconStyle = {
-    fontSize: '5em',
-  };
   const items = [
     {
       id: 0,
       title: 'Energie',
       desc: 'Ökostrom: wirklich und unabhängig',
       link: '/energie',
-      icon: <SolarPower sx={iconStyle} />,
+      icon: <img src='./planet.png' width={'80px'} alt='Earth Icon' />,
     },
     {
       id: 1,
       title: 'Banking',
       desc: "Sozial-okoligisches Konto für's Gemeinwohl",
       link: '/banking',
-      icon: <Savings sx={iconStyle} />,
+      icon: <img src='./growth.png' width={'80px'} alt='Banking Icon' />,
     },
     {
       id: 2,
       title: 'Mobilfunk',
       desc: 'Fairer Klima- und Datenschutz',
       link: '/',
-      icon: <SimCard sx={iconStyle} />,
+      icon: <img src='./sim-card.png' width={'80px'} alt='Sim-Card Icon' />,
     },
     {
       id: 3,
       title: 'Versicherung',
       desc: 'Leistung für einen nachhaltigen Lebensstil',
       link: '/',
-      icon: <GppGood sx={iconStyle} />,
+      icon: <img src='./protection.png' width={'80px'} alt='Earth Icon' />,
     },
   ];
 
@@ -45,22 +41,23 @@ export default function Compare() {
         {items.map(item => {
           return (
             <Grid item xs={3} key={item.id}>
-              <Box
+              <Paper
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   height: 1,
+                  p: 2,
                 }}
               >
                 {item.icon}
                 <Typography variant='h5'>{item.title}</Typography>
                 <Typography variant='body2'>{item.desc}</Typography>
-                <Button onClick={() => navigate(item.link)}>
+                <Button variant='contained' onClick={() => navigate(item.link)}>
                   Zum Vergleich
                 </Button>
-              </Box>
+              </Paper>
             </Grid>
           );
         })}

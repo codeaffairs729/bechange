@@ -45,7 +45,7 @@ export default function Partners() {
           >
             {items.map(item => {
               return (
-                <Grid item xs={3} key={item.id}>
+                <Grid item xs={6} lg={3} key={item.id}>
                   <img width={150} src={item.src} alt={item.alt} />
                 </Grid>
               );

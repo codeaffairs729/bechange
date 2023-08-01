@@ -39,7 +39,7 @@ export default function Reviews() {
       >
         {persons.map(person => {
           return (
-            <Grid item key={person.id}>
+            <Grid item key={person.id} xs={12} sm={6} lg={3}>
               <Paper variant='outlined' sx={{ maxWidth: 345, p: 3 }}>
                 <CardContent>
                   <Typography variant='body1'>
@@ -56,12 +56,12 @@ export default function Reviews() {
                     placeItems: 'center',
                   }}
                 >
-                  <Grid item xs={3}>
+                  <Grid item xs={3} sm={4}>
                     <Avatar>
                       <Person />
                     </Avatar>
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid item xs={9} sm={8}>
                     <Typography variant='h5'>{person.name}</Typography>
                     <Typography>{person.job}</Typography>
                   </Grid>

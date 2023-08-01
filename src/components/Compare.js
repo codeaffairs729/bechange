@@ -40,7 +40,7 @@ export default function Compare() {
       <Grid container spacing={5}>
         {items.map(item => {
           return (
-            <Grid item xs={3} key={item.id}>
+            <Grid item xs={12} sm={6} lg={3} key={item.id}>
               <Paper
                 sx={{
                   display: 'flex',
@@ -54,7 +54,11 @@ export default function Compare() {
                 {item.icon}
                 <Typography variant='h5'>{item.title}</Typography>
                 <Typography variant='body2'>{item.desc}</Typography>
-                <Button variant='contained' onClick={() => navigate(item.link)}>
+                <Button
+                  variant='contained'
+                  onClick={() => navigate(item.link)}
+                  sx={{ my: 2 }}
+                >
                   Zum Vergleich
                 </Button>
               </Paper>

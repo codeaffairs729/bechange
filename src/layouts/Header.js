@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   Container,
-  Grid,
   IconButton,
   Menu,
   MenuItem,
@@ -15,6 +14,10 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 
 const navItems = [
+  {
+    title: 'Home',
+    slug: '',
+  },
   {
     title: 'Energie',
     slug: 'energie',
@@ -131,6 +134,7 @@ export default function Header() {
                 key={i}
                 onClick={() => handleCloseNavMenu(item.slug)}
                 sx={{ my: 2, display: 'block' }}
+                variant={item?.slug === screen && 'contained'}
               >
                 {item.title}
               </Button>

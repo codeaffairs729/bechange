@@ -9,7 +9,12 @@ import AdSection from '../components/AdSection';
 export default function Home() {
   return (
     <Box component='main' sx={{ flexGrow: 1, mt: '3em' }}>
-      <Jumbotron />
+      <Jumbotron
+        title={'Dein wirklich grünes Vergleichsportal'}
+        desc={'Transparent, sicher & einfach'}
+        btnText={'Vergleiche'}
+        link={true}
+      />
       <Compare />
       <Divider />
       <Partners />

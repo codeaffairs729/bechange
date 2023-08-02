@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import { Parallax } from 'react-parallax';
 
-export default function Jumbotron() {
+export default function Jumbotron({ title, desc, btnText, link }) {
   const insideStyles = {
     padding: 10,
     position: 'absolute',
@@ -16,14 +16,16 @@ export default function Jumbotron() {
       <Box sx={{ height: 500 }}>
         <Box sx={insideStyles}>
           <Typography variant='h4' fontWeight={900} color='primary.light'>
-            Dein wirklich grünes Vergleichsportal
+            {title}
           </Typography>
           <Typography variant='h5' color='primary.light' fontStyle={'italic'}>
-            Transparent, sicher &amp; einfach
+            {desc}
           </Typography>
-          <Button variant='contained' sx={{ mt: 5 }}>
-            Vergleiche
-          </Button>
+          {link && (
+            <Button variant='contained' sx={{ mt: 5 }}>
+              {btnText}
+            </Button>
+          )}
         </Box>
       </Box>
     </Parallax>

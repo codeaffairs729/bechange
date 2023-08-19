@@ -11,7 +11,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Menu as MenuIcon, Home } from '@mui/icons-material';
 
 const navItems = [
   {
@@ -21,14 +21,17 @@ const navItems = [
   {
     title: 'Energie',
     slug: 'energie',
+    main: true,
   },
   {
     title: 'Banking',
     slug: 'banking',
+    main: true,
   },
   {
     title: 'Mobilfunk',
     slug: 'mobile-funk',
+    main: true,
   },
   {
     title: 'Qualität',
@@ -36,7 +39,7 @@ const navItems = [
   },
   {
     title: 'Blog',
-    slug: 'blug',
+    slug: 'blog',
   },
 ];
 
@@ -134,9 +137,15 @@ export default function Header() {
                 key={i}
                 onClick={() => handleCloseNavMenu(item.slug)}
                 sx={{ my: 2, display: 'block' }}
-                variant={item?.slug === screen && 'contained'}
+                variant={
+                  item?.slug === screen
+                    ? 'contained'
+                    : item?.main
+                    ? 'outlined'
+                    : ''
+                }
               >
-                {item.title}
+                {item.title === 'Home' ? <Home color='primary' /> : item.title}
               </Button>
             ))}
           </Box>

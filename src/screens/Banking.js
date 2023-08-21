@@ -16,7 +16,7 @@ export default function Banking() {
         text1={'Bio? Selbes gilt für Ökostrom'}
         text2={'Kostencheck: wie viel kostet es mich mehr?'}
       />
-      <RenderDetails />
+      <RenderDetails type={'banking'} />
     </Container>
   );
 }

@@ -32,6 +32,7 @@ export default function telecom(state = initialState, action) {
       return {
         ...state,
         loading: false,
+        loadingTariffs: false,
       };
     default:
       return state;

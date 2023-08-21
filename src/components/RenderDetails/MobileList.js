@@ -63,9 +63,16 @@ export default function MobileList() {
           id={`panel${i}bh-header`}
         >
           <Typography sx={{ width: '33%', flexGrow: 1 }}>
-            {company?.name}
+            <img
+              src={`${process.env.REACT_APP_API_URL}${company?.logo}`}
+              width={'20%'}
+              alt={company?.name}
+            />
           </Typography>
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>
+          <Typography
+            variant='h4'
+            sx={{ width: '33%', flexShrink: 0, lineHeight: '2.5em' }}
+          >
             {'Tarife'}
           </Typography>
           <Button

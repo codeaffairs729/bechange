@@ -13,6 +13,7 @@ import { read, utils } from 'xlsx';
 import file from '../../assets/data/datasheet1.xlsx';
 import { Link } from 'react-router-dom';
 import MobileList from './MobileList';
+import BankingList from './BankingList';
 
 export default function RenderDetails({ type }) {
   const [expanded, setExpanded] = useState(false);
@@ -34,6 +35,8 @@ export default function RenderDetails({ type }) {
 
   return type === 'telecom' ? (
     <MobileList />
+  ) : type === 'banking' ? (
+    <BankingList />
   ) : (
     excelData?.map((data, i) => (
       <Accordion

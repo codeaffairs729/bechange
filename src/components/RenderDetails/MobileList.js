@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTelecomCompanies } from '../../redux/actions/telecom';
+import {
+  getTelecomCompanies,
+  getTelecomTariffs,
+} from '../../redux/actions/telecom';
 import {
   Accordion,
   AccordionDetails,
@@ -9,6 +12,7 @@ import {
   CircularProgress,
   Divider,
   Grid,
+  Paper,
   Typography,
 } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
@@ -17,16 +21,23 @@ import { Link } from 'react-router-dom';
 export default function MobileList() {
   const dispatch = useDispatch();
 
+  const [expanded, setExpanded] = useState(false);
+
   useEffect(() => {
     dispatch(getTelecomCompanies());
   }, [dispatch]);
 
-  const { loading, companies } = useSelector(state => state.telecom);
+  const { loading, loadingTariffs, companies, tariffs } = useSelector(
+    state => state.telecom
+  );
 
-  const [expanded, setExpanded] = useState(false);
+  const getTariffs = network => {
+    dispatch(getTelecomTariffs(network));
+  };
 
-  const handleChange = panel => (event, isExpanded) => {
+  const handleChange = (panel, isExpanded, company) => {
     setExpanded(isExpanded ? panel : false);
+    isExpanded && getTariffs(company);
   };
 
   const renderItems = items => {
@@ -44,7 +55,7 @@ export default function MobileList() {
       <Accordion
         key={i}
         expanded={expanded === `panel${i}`}
-        onChange={handleChange(`panel${i}`)}
+        onChange={() => handleChange(`panel${i}`, !expanded, company?._id)}
       >
         <AccordionSummary
           expandIcon={<ExpandMore />}
@@ -57,7 +68,11 @@ export default function MobileList() {
           <Typography sx={{ width: '33%', flexShrink: 0 }}>
             {'Tarife'}
           </Typography>
-          <Button variant='contained' color='tertiary'>
+          <Button
+            variant='contained'
+            color='tertiary'
+            onClick={() => getTariffs(company?._id)}
+          >
             Wechseln
           </Button>
         </AccordionSummary>
@@ -77,46 +92,54 @@ export default function MobileList() {
             </Grid>
           </Grid>
           <Divider sx={{ my: 2 }} />
-          <Typography fontWeight={900} sx={{ mb: 2 }}>
-            Tarifname: {company?.Tarifname}
-          </Typography>
-          <Grid container spacing={3}>
-            <Grid item xs={4}>
-              <Typography>{company?.Tarifbeschreibung}</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography fontWeight={900}>Tarifgebühr</Typography>
-              <Typography>{company?.Tarifgrundgebühr}</Typography>
-              <Typography>
-                {company['einmalige Startgebühr']}€ Grundgebühr
-              </Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                component={Link}
-                to={company['Produktinformation URL']}
-                target='_blank'
-                variant='outlined'
-                fullWidth
-              >
-                Produktinformation
-              </Button>
-              <Button
-                component={Link}
-                to={company['Preisliste URL']}
-                target='_blank'
-                variant='outlined'
-                sx={{ mt: 2 }}
-                fullWidth
-              >
-                Preisliste URL
-              </Button>
-            </Grid>
-          </Grid>
-          <Divider sx={{ my: 2 }} />
-          <Typography fontWeight={900}>
-            Datenvolumen: {company?.Datenvolumen}
-          </Typography>
+          {loadingTariffs ? (
+            <CircularProgress />
+          ) : (
+            tariffs?.map((tariff, i) => {
+              return (
+                <Paper key={i} sx={{ p: 2, mb: 3 }}>
+                  <Typography fontWeight={900} sx={{ mb: 2 }}>
+                    Tarifname: {tariff?.name}
+                  </Typography>
+                  <Grid container spacing={3}>
+                    <Grid item xs={4}>
+                      <Typography>{renderItems(tariff?.details)}</Typography>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Typography fontWeight={900}>Tarifgebühr</Typography>
+                      <Typography>{tariff?.base_price}€/Monat</Typography>
+                      <Typography>{tariff?.setup_cost}€ Grundgebühr</Typography>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Button
+                        component={Link}
+                        to={tariff?.product_info_url}
+                        target='_blank'
+                        variant='outlined'
+                        fullWidth
+                      >
+                        Produktinformation
+                      </Button>
+                      <Button
+                        component={Link}
+                        to={tariff?.price_list_url}
+                        target='_blank'
+                        variant='outlined'
+                        sx={{ mt: 2 }}
+                        fullWidth
+                      >
+                        Preisliste URL
+                      </Button>
+                    </Grid>
+                  </Grid>
+                  <Divider sx={{ my: 2 }} />
+                  <Typography fontWeight={900}>
+                    Datenvolumen: {tariff?.data}
+                  </Typography>
+                </Paper>
+              );
+            })
+          )}
         </AccordionDetails>
       </Accordion>
     ))

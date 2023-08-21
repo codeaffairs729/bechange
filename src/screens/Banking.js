@@ -3,22 +3,20 @@ import SectionHeading from '../components/typography/SectionHeading';
 import AdSection from '../components/AdSection';
 import RenderDetails from '../components/RenderDetails';
 
-export default function Mobile() {
+export default function Banking() {
   const style = {
     container: { width: '90%', mx: 'auto', mt: '8em', mb: '3em' },
   };
   return (
     <Container sx={style.container}>
-      <SectionHeading title={'Mobile'} />
+      <SectionHeading title={'Banking'} />
       <AdSection
-        title={'Dein Impact im Mobilfunk'}
-        desc={
-          'Was ist an den herkömmlichen Mobiltarifen verkehrt? Informiere Dich in den nebenstehende Blogs zur Thematik.'
-        }
-        text1={'Wie groß ist der Fußabdruck unserer Fixkosten?'}
+        title={'Dein Impact für Banking'}
+        desc={'Lorem Ipsum Dolor Sit Amet'}
+        text1={'Bio? Selbes gilt für Ökostrom'}
         text2={'Kostencheck: wie viel kostet es mich mehr?'}
       />
-      <RenderDetails type={'telecom'} />
+      <RenderDetails />
     </Container>
   );
 }

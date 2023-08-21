@@ -1,41 +1,46 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTelecomCompanies } from '../../redux/actions/telecom';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Button,
+  CircularProgress,
   Divider,
   Grid,
   Typography,
 } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
-import { read, utils } from 'xlsx';
-import file from '../../assets/data/datasheet1.xlsx';
 import { Link } from 'react-router-dom';
-import MobileList from './MobileList';
 
-export default function RenderDetails({ type }) {
+export default function MobileList() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTelecomCompanies());
+  }, [dispatch]);
+
+  const { loading, companies } = useSelector(state => state.telecom);
+
   const [expanded, setExpanded] = useState(false);
-  const [excelData, setExcelData] = useState([]);
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  useEffect(() => {
-    (async () => {
-      const f = await (await fetch(file)).arrayBuffer();
-      const wb = read(f);
-      const ws = wb.Sheets.Telecommunications;
-      const data = utils.sheet_to_json(ws);
-      setExcelData(data);
-    })();
-  }, []);
+  const renderItems = items => {
+    const splitItems = items.split('- ');
+    const result = splitItems.map(item => {
+      return <p>{'- ' + item}</p>;
+    });
+    return result.slice(1);
+  };
 
-  return type === 'telecom' ? (
-    <MobileList />
+  return loading ? (
+    <CircularProgress />
   ) : (
-    excelData?.map((data, i) => (
+    companies?.map((company, i) => (
       <Accordion
         key={i}
         expanded={expanded === `panel${i}`}
@@ -46,13 +51,11 @@ export default function RenderDetails({ type }) {
           aria-controls={`panel${i}bh-content`}
           id={`panel${i}bh-header`}
         >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>
-            {data.Firma}
+          <Typography sx={{ width: '33%', flexGrow: 1 }}>
+            {company?.name}
           </Typography>
-          <Typography
-            sx={{ width: '33%', flexShrink: 0, color: 'text.secondary' }}
-          >
-            ab {data.Tarifgrundgebühr ? data.Tarifgrundgebühr : '-/'}
+          <Typography sx={{ width: '33%', flexShrink: 0 }}>
+            {'Tarife'}
           </Typography>
           <Button variant='contained' color='tertiary'>
             Wechseln
@@ -62,36 +65,36 @@ export default function RenderDetails({ type }) {
           <Grid container sx={{ justifyContent: 'space-between' }}>
             <Grid item xs={12} sm={5}>
               <Typography variant='h6' sx={{ mb: 2 }}>
-                Über {data.Firma}
+                Über {company?.name}
               </Typography>
-              <Typography>{data.Über}</Typography>
+              <Typography>{renderItems(company?.about)}</Typography>
             </Grid>
             <Grid item xs={12} sm={5}>
               <Typography variant='h6' sx={{ mb: 2 }}>
                 Gilt für alle Tarife
               </Typography>
-              <Typography>{data['Gilt für alle Tarife']}</Typography>
+              <Typography>{renderItems(company?.valid_tariffs)}</Typography>
             </Grid>
           </Grid>
           <Divider sx={{ my: 2 }} />
           <Typography fontWeight={900} sx={{ mb: 2 }}>
-            Tarifname: {data.Tarifname}
+            Tarifname: {company?.Tarifname}
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={4}>
-              <Typography>{data.Tarifbeschreibung}</Typography>
+              <Typography>{company?.Tarifbeschreibung}</Typography>
             </Grid>
             <Grid item xs={4}>
               <Typography fontWeight={900}>Tarifgebühr</Typography>
-              <Typography>{data.Tarifgrundgebühr}</Typography>
+              <Typography>{company?.Tarifgrundgebühr}</Typography>
               <Typography>
-                {data['einmalige Startgebühr']}€ Grundgebühr
+                {company['einmalige Startgebühr']}€ Grundgebühr
               </Typography>
             </Grid>
             <Grid item xs={4}>
               <Button
                 component={Link}
-                to={data['Produktinformation URL']}
+                to={company['Produktinformation URL']}
                 target='_blank'
                 variant='outlined'
                 fullWidth
@@ -100,7 +103,7 @@ export default function RenderDetails({ type }) {
               </Button>
               <Button
                 component={Link}
-                to={data['Preisliste URL']}
+                to={company['Preisliste URL']}
                 target='_blank'
                 variant='outlined'
                 sx={{ mt: 2 }}
@@ -112,7 +115,7 @@ export default function RenderDetails({ type }) {
           </Grid>
           <Divider sx={{ my: 2 }} />
           <Typography fontWeight={900}>
-            Datenvolumen: {data.Datenvolumen}
+            Datenvolumen: {company?.Datenvolumen}
           </Typography>
         </AccordionDetails>
       </Accordion>

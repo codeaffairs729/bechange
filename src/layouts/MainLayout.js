@@ -6,6 +6,7 @@ import Energy from '../screens/Energy';
 import Home from '../screens/Home';
 import Mobile from '../screens/Mobile';
 import Quality from '../screens/Quality';
+import Banking from '../screens/Banking';
 
 const RenderPage = () => {
   const { screen } = useParams();
@@ -14,6 +15,8 @@ const RenderPage = () => {
       return <Energy />;
     case 'mobile-funk':
       return <Mobile />;
+    case 'banking':
+      return <Banking />;
     case 'qualitaet':
       return <Quality />;
     default:

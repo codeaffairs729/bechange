@@ -1,0 +1,8 @@
+// API
+export const API_TELECOM_COMPANIES = 'telecom-companies';
+
+// Actions
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
+export const GET_TELECOM_COMPANIES_SUCCESS = 'GET_TELECOM_COMPANIES_SUCCESS';
+export const GET_TELECOM_COMPANIES_FAIL = 'GET_TELECOM_COMPANIES_FAIL';

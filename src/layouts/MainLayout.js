@@ -7,6 +7,7 @@ import Home from '../screens/Home';
 import Mobile from '../screens/Mobile';
 import Quality from '../screens/Quality';
 import Banking from '../screens/Banking';
+import Blog from '../screens/Blog';
 
 const RenderPage = () => {
   const { screen } = useParams();
@@ -19,6 +20,8 @@ const RenderPage = () => {
       return <Banking />;
     case 'qualitaet':
       return <Quality />;
+    case 'blog':
+      return <Blog />;
     default:
       return <Home />;
   }

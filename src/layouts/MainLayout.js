@@ -8,6 +8,7 @@ import Mobile from '../screens/Mobile';
 import Quality from '../screens/Quality';
 import Banking from '../screens/Banking';
 import Blog from '../screens/Blog';
+import BlogSingle from '../screens/BlogSingle';
 
 const RenderPage = () => {
   const { screen } = useParams();
@@ -28,11 +29,13 @@ const RenderPage = () => {
 };
 
 export default function MainLayout() {
+  const { subscreen } = useParams();
+
   return (
     <Box>
       <CssBaseline />
       <Header />
-      <RenderPage />
+      {subscreen ? <BlogSingle /> : <RenderPage />}
       <Footer />
     </Box>
   );

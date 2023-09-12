@@ -18,6 +18,11 @@ function App() {
                 <Route exact path='/'>
                   <Route exact path='' element={<MainLayout />} />
                   <Route exact path=':screen' element={<MainLayout />} />
+                  <Route
+                    exact
+                    path=':screen/:subscreen'
+                    element={<MainLayout />}
+                  />
                 </Route>
               </Routes>
             </>

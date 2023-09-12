@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
@@ -22,6 +23,7 @@ export default function Blog() {
   };
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading, articles } = useSelector(state => state.blog);
 
   useEffect(() => {
@@ -69,7 +71,9 @@ export default function Blog() {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size='small'>Read More</Button>
+                      <Button size='small' onClick={() => navigate(gen?.slug)}>
+                        Read More
+                      </Button>
                     </CardActions>
                   </Card>
                 </Box>
@@ -96,7 +100,9 @@ export default function Blog() {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size='small'>Read More</Button>
+                      <Button size='small' onClick={() => navigate(eng?.slug)}>
+                        Read More
+                      </Button>
                     </CardActions>
                   </Card>
                 </Box>
@@ -123,7 +129,9 @@ export default function Blog() {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size='small'>Read More</Button>
+                      <Button size='small' onClick={() => navigate(bank?.slug)}>
+                        Read More
+                      </Button>
                     </CardActions>
                   </Card>
                 </Box>
@@ -150,7 +158,9 @@ export default function Blog() {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size='small'>Read More</Button>
+                      <Button size='small' onClick={() => navigate(tel?.slug)}>
+                        Read More
+                      </Button>
                     </CardActions>
                   </Card>
                 </Box>

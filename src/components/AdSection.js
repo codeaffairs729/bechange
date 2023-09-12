@@ -6,6 +6,7 @@ export default function AdSection({ title, desc, text1, text2 }) {
       bgcolor: '#000',
       color: '#fff',
       height: 1,
+      padding: "20px"
     },
   };
   return (

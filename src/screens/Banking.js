@@ -3,17 +3,22 @@ import SectionHeading from "../components/typography/SectionHeading";
 import AdSection from "../components/AdSection";
 import RenderDetails from "../components/RenderDetails";
 import { Parallax } from "react-parallax";
-import BankingCheckbox from "../components/BankingCheckbox";
+import Checkbox from "../components/CheckboxHeader";
 
 export default function Banking() {
   const style = {
     container: { mx: "auto", mt: "12em", mb: "7em" },
   };
+  const labels = [
+    { label: "Alter" },
+    { label: "Kreditkarte" },
+    { label: "Gemeinschaftskonto" },
+  ];
   return (
     <Box>
       <Parallax bgImage={"/cover.png"} strength={500}>
         <Box sx={style.container}>
-          <BankingCheckbox />
+          <Checkbox labels={labels} />
         </Box>
       </Parallax>
       <Box mt={5} mb={5}>

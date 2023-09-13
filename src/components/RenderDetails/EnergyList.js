@@ -1,23 +1,18 @@
 import { useState } from "react";
 import {
-  Accordion,
   AccordionDetails,
   AccordionSummary,
   Box,
   Button,
   Grid,
   Typography,
-  styled,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
 import { PieChart } from "react-minimal-pie-chart";
 import EnergyDesc from "./EnergyDesc";
+import styles from "../typography/StyleTypography";
+import { StyledAccordion } from "../Common";
 
-export const StyledAccordion = styled(Accordion)(({ theme }) => ({
-  "&::before": {
-    backgroundColor: "transparent",
-  },
-}));
 export default function EnergyList({ tariffData }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -102,18 +97,18 @@ export default function EnergyList({ tariffData }) {
             >
               <Grid container sx={style.flexCenter} columns={20} width="100%">
                 <Grid item md={4} xs={10}>
-                  <Typography variant="h6">{data.name}</Typography>
+                  <Typography variant="h6" sx={styles.h6}>{data.name}</Typography>
                 </Grid>
                 <Grid item md={4} xs={10} sx={style.flexCenter}>
                   <RenderPieChart energyMix={data.energyMix} size={"50px"} />
                 </Grid>
                 <Grid item md={4} xs={10}>
                   <Box sx={style.flexCenter} flexDirection="column">
-                    <Typography variant="h5" color="primary">
+                    <Typography variant="h5" color="primary" sx={styles.h5}>
                       {Math.round(data.price.workingPrice * 100) / 100}{" "}
                       &euro;/month
                     </Typography>
-                    <Typography variant="h6">
+                    <Typography variant="h6" sx={styles.h5}>
                       {Math.round(data.price.basePrice * 100) / 100}{" "}
                       &euro;/month
                     </Typography>
@@ -121,7 +116,7 @@ export default function EnergyList({ tariffData }) {
                 </Grid>
                 <Grid item md={4} xs={10} sx={style.flexCenter} flexDirection="column">
                   <Box display="flex" alignItems="center">
-                    <Typography variant="h6">Tariff</Typography>
+                    <Typography variant="h6" sx={styles.h6}>Tariff</Typography>
                     <ExpandMore />
                   </Box>
                 </Grid>

@@ -4,6 +4,7 @@ import Calculator from "../components/Calculator";
 import EnergyList from "../components/RenderDetails/EnergyList";
 import { Parallax } from "react-parallax";
 import AdSection from "../components/AdSection";
+import styles from "../components/typography/StyleTypography";
 
 export default function Energy() {
   const style = {
@@ -31,7 +32,7 @@ export default function Energy() {
           />
           <EnergyList tariffData={tariffData} />
           <Box width="fit-content" ml="auto" mt={2}>
-          <Typography variant="h5">In Kooperation mit</Typography>
+          <Typography variant="h5" sx={styles.h5}>In Kooperation mit</Typography>
           </Box>
         </Container>
       </Box>

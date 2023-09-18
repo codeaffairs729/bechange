@@ -15,7 +15,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { ExpandMore, ExpandLess } from "@mui/icons-material";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { PieChart } from "react-minimal-pie-chart";
 import Modal from "../Modal";
 import TariffDetails from "./TariffDetails";
@@ -111,8 +111,13 @@ export default function MobileList() {
                 </Grid>
                 <Grid item xs={7} md={1}>
                   <Box display="flex" alignItems="center">
-                    <Typography variant="h6" sx={styles.h6}>Tariff</Typography>
-                    <ExpandMore />
+                    <AccordionSummary
+                      expandIcon={<ExpandMore />}
+                      variant="h6"
+                      sx={styles.h6}
+                    >
+                      Tariff
+                    </AccordionSummary>
                   </Box>
                 </Grid>
                 <Grid item xs={12} md={2} align="center">
@@ -282,12 +287,12 @@ export default function MobileList() {
                             <Box display="flex" alignItems="center" mt={2}>
                               <InfoOutlinedIcon
                                 variant="outlined"
-                                sx={{ color: "#000"}}
+                                sx={{ color: "#000" }}
                               />
                               <Typography
                                 variant="p"
                                 fontSize={14}
-                                sx={{ color: "#000",...styles.p }}
+                                sx={{ ...styles.p, color: "#000" }}
                               >
                                 TARIF-DETAILS
                               </Typography>

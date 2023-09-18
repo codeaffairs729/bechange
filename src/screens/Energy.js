@@ -21,7 +21,7 @@ export default function Energy() {
         </Box>
       </Parallax>
       <Box mt={5} mb={5}>
-        <Container>
+        <Container maxWidth="lg">
           <AdSection
             title={"Dein Impact fur Energie"}
             desc={

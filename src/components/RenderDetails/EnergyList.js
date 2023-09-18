@@ -7,31 +7,32 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
 import { PieChart } from "react-minimal-pie-chart";
 import EnergyDesc from "./EnergyDesc";
 import styles from "../typography/StyleTypography";
 import { StyledAccordion } from "../Common";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function EnergyList({ tariffData }) {
   const [expanded, setExpanded] = useState(false);
+  const [animateIndex, setAnimateIndex] = useState();
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const RenderPieChart = ({ energyMix, size, showLabel }) => {
+  const RenderPieChart = ({ energyMix, size, showLabel, index }) => {
     const pieData = energyMix?.map((energy) => {
       return {
         title: energy.source,
         value: energy.percent,
         color:
           energy.source === "wind"
-            ? "#bbe4e9"
+            ? "#7CD0E0"
             : energy.source === "hydro"
-            ? "#2e79ba"
+            ? "#006180"
             : energy.source === "solar"
-            ? "#f7aa00"
+            ? "#EDD81D"
             : energy.source === "nuclear"
             ? "#c9fdd7"
             : "black",
@@ -49,10 +50,10 @@ export default function EnergyList({ tariffData }) {
           marginRight: "100px",
           fontSize: "9px",
           fontWeight: "600",
-          fill: "#fff"
+          fill: "#fff",
         }}
         segmentsStyle={{ transition: "stroke .3s", cursor: "pointer" }}
-        animate
+        animate={index === animateIndex}
       />
     );
   };
@@ -83,7 +84,7 @@ export default function EnergyList({ tariffData }) {
           </Typography>
         </AccordionSummary>
       </Accordion> */}
-      {tariffData?.map((data) => {
+      {tariffData?.map((data, index) => {
         return (
           <StyledAccordion
             key={data?.id}
@@ -94,13 +95,20 @@ export default function EnergyList({ tariffData }) {
             <AccordionSummary
               aria-controls={`panel${data?.id}bh-content`}
               id={`panel${data?.id}bh-header`}
+              onClick={() => setAnimateIndex(index)}
             >
               <Grid container sx={style.flexCenter} columns={20} width="100%">
                 <Grid item md={4} xs={10}>
-                  <Typography variant="h6" sx={styles.h6}>{data.name}</Typography>
+                  <Typography variant="h6" sx={styles.h6}>
+                    {data.name}
+                  </Typography>
                 </Grid>
                 <Grid item md={4} xs={10} sx={style.flexCenter}>
-                  <RenderPieChart energyMix={data.energyMix} size={"50px"} />
+                  <RenderPieChart
+                    energyMix={data.energyMix}
+                    size={"50px"}
+                    index={index}
+                  />
                 </Grid>
                 <Grid item md={4} xs={10}>
                   <Box sx={style.flexCenter} flexDirection="column">
@@ -109,20 +117,31 @@ export default function EnergyList({ tariffData }) {
                       &euro;/month
                     </Typography>
                     <Typography variant="h6" sx={styles.h5}>
-                      {Math.round(data.price.basePrice * 100) / 100}{" "}
-                      &euro;/month
+                      {Math.round(data.price.basePrice * 100) / 100} &euro;/Jahr
                     </Typography>
-                  </Box>
-                </Grid>
-                <Grid item md={4} xs={10} sx={style.flexCenter} flexDirection="column">
-                  <Box display="flex" alignItems="center">
-                    <Typography variant="h6" sx={styles.h6}>Tariff</Typography>
-                    <ExpandMore />
                   </Box>
                 </Grid>
                 <Grid
                   item
-                  md={4} xs={10}
+                  md={4}
+                  xs={10}
+                  sx={style.flexCenter}
+                  flexDirection="column"
+                >
+                  <Box display="flex" alignItems="center">
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      variant="h6"
+                      sx={styles.h6}
+                    >
+                      Tariff
+                    </AccordionSummary>
+                  </Box>
+                </Grid>
+                <Grid
+                  item
+                  md={4}
+                  xs={10}
                   display="flex"
                   alignItems="end"
                   justifyContent="center"
@@ -134,8 +153,12 @@ export default function EnergyList({ tariffData }) {
                 </Grid>
               </Grid>
             </AccordionSummary>
-            <AccordionDetails>
-              <EnergyDesc data={data} RenderPieChart={RenderPieChart} />
+            <AccordionDetails id={`panel${index}`}>
+              <EnergyDesc
+                data={data}
+                RenderPieChart={RenderPieChart}
+                index={index}
+              />
             </AccordionDetails>
           </StyledAccordion>
         );

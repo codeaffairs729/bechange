@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import useTheme from '@mui/material/styles/useTheme';
 import {
   AppBar,
   Box,
@@ -54,6 +55,7 @@ const navItems = [
 export default function Header() {
   const navigate = useNavigate();
   const { screen } = useParams();
+  const theme = useTheme();
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -68,7 +70,7 @@ export default function Header() {
 
   return (
     <AppBar color="background">
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Toolbar disableGutters sx={{ minHeight: "64px !important" }}>
           <Typography
             noWrap

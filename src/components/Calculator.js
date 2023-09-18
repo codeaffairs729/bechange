@@ -113,7 +113,7 @@ export default function Calculator({ setTariffData }) {
 
   return (
     <Box sx={style.calculator}>
-      <Grid
+      {/* <Grid
         container
         justifyContent="center"
         alignItems="center"
@@ -151,7 +151,7 @@ export default function Calculator({ setTariffData }) {
           />
           <Typography fontWeight={!switchPrivate && 900}>Business</Typography>
         </Grid>
-      </Grid>
+      </Grid> */}
       <Grid
         container
         justifyContent="center"

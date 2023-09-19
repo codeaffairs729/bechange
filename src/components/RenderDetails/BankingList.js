@@ -283,7 +283,7 @@ export default function MobileList() {
                           >
                             Wechseln
                           </Button>
-                          <Link onClick={() => setOpenModal(true)}>
+                          <Link to="#">
                             <Box display="flex" alignItems="center" mt={2}>
                               <InfoOutlinedIcon
                                 variant="outlined"

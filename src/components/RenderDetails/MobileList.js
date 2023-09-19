@@ -182,12 +182,12 @@ export default function MobileList() {
                           </Typography>
                         </Grid>
                         <Grid item xs={5} md={2}>
-                          <Link onClick={() => setOpenModal(true)}>
-                            <Box display="flex" alignItems="center" mt={2}>
-                              <InfoOutlinedIcon
-                                variant="outlined"
-                                sx={{ color: "#000" }}
-                              />
+                          <Box display="flex" alignItems="center" mt={2}>
+                            <InfoOutlinedIcon
+                              variant="outlined"
+                              sx={{ color: "#000" }}
+                            />
+                            <Link to={tariff?.product_info_url}>
                               <Typography
                                 variant="p"
                                 fontSize={14}
@@ -195,8 +195,8 @@ export default function MobileList() {
                               >
                                 TARIF-DETAILS
                               </Typography>
-                            </Box>
-                          </Link>
+                            </Link>
+                          </Box>
                         </Grid>
                         <Grid
                           item

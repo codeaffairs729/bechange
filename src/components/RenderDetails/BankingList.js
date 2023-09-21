@@ -15,7 +15,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { ExpandMore, ExpandLess } from "@mui/icons-material";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { PieChart } from "react-minimal-pie-chart";
 import Modal from "../Modal";
 import TariffDetails from "./TariffDetails";
@@ -281,7 +281,7 @@ export default function MobileList() {
                           >
                             Wechseln
                           </Button>
-                          <Link onClick={() => setOpenModal(true)}>
+                          <Link to="#">
                             <Box display="flex" alignItems="center" mt={2}>
                               <InfoOutlinedIcon
                                 variant="outlined"

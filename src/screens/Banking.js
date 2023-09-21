@@ -22,7 +22,7 @@ export default function Banking() {
         </Box>
       </Parallax>
       <Box mt={5} mb={5}>
-        <Container>
+        <Container maxWidth="lg">
           <SectionHeading title={"Banking"} />
           <AdSection
             title={"Dein Impact für Banking"}

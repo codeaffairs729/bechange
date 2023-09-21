@@ -11,28 +11,28 @@ export default function EnergyDesc({ data, RenderPieChart, index }) {
   return (
     <>
       <Modal open={openModal} setOpen={setOpenModal}>
-        <TariffDetails />
+        <TariffDetails data={data} />
       </Modal>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} lg={3}>
           <Typography sx={style.title}>Tariff: {data?.name}</Typography>
-          <Typography sx={styles.p}>
+          <Typography sx={{ mt: 1, ...styles.p }}>
             Preisgarantie:{" "}
             {data?.priceGuarantee.period
               ? `${data?.priceGuarantee.period.value} ${data?.priceGuarantee.period.unit}`
               : "Keine"}
           </Typography>
-          <Typography sx={styles.p}>
+          <Typography sx={{ mt: 1, ...styles.p }}>
             Kündigungsfrist:{" "}
             {`${data?.cancellationPeriod.value} ${data?.cancellationPeriod.unit}`}
           </Typography>
-          <Typography sx={styles.p}>
+          <Typography sx={{ mt: 1, ...styles.p }}>
             Mindestvertragslaufzeit:{" "}
             {data?.minimumTerm
               ? `${data?.minimumTerm.value} ${data?.minimumTerm.unit}`
               : "Keine"}
           </Typography>
-          <Box>
+          <Box sx={{ mt: 1 }}>
             <Typography sx={styles.p}>
               Grundpreis: {data?.price.basePrice} €/Monat
             </Typography>
@@ -40,10 +40,10 @@ export default function EnergyDesc({ data, RenderPieChart, index }) {
               Arbeitspreis: {data?.price.workingPrice} €/Monat
             </Typography>
             <Typography sx={styles.p}>
-              Gesamtpreis:{" "}
+              Gesamtpreis:
               {Math.round(
                 (data?.price.basePrice + data?.price.workingPrice) * 100
-              ) / 100}{" "}
+              ) / 100}
               €/Monat
             </Typography>
             <Link onClick={() => setOpenModal(true)}>
@@ -52,7 +52,7 @@ export default function EnergyDesc({ data, RenderPieChart, index }) {
                 <Typography
                   variant="p"
                   fontSize={14}
-                  sx={{ ...styles.p, color: "#000" }}
+                  sx={{ color: "#000", ...styles.p }}
                 >
                   TARIF-DETAILS
                 </Typography>
@@ -106,7 +106,7 @@ export default function EnergyDesc({ data, RenderPieChart, index }) {
           <Typography sx={style.title}>
             Vorteile: {data?.provider.name}
           </Typography>
-          <Typography sx={{ ...styles.p, m: 0 }}>
+          <Typography sx={styles.p}>
             <div dangerouslySetInnerHTML={{ __html: data?.advantages }}></div>
           </Typography>
         </Grid>
@@ -114,7 +114,7 @@ export default function EnergyDesc({ data, RenderPieChart, index }) {
           <Typography sx={style.title}>Labels</Typography>
           {data?.labels.map((label, i) => {
             return (
-              <Typography key={i} sx={{ ...styles.p, m: 0 }}>
+              <Typography key={i} sx={styles.p}>
                 {label.authority}
               </Typography>
             );

@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material';
 
 let theme = createTheme({
   palette: {
-    primary: { main: '#3d8356', light: '#fff' },
+    primary: { main: '#598F34', light: '#fff' },
     secondary: { main: '#eee' },
     tertiary: { main: '#099a35bf', contrastText: '#fff' },
     yellow: { main: '#e4c474' },

@@ -16,6 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
+
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Link } from "react-router-dom";
 import styles from "../typography/StyleTypography";
@@ -93,10 +94,13 @@ export default function MobileList() {
                 </Grid>
                 <Grid item xs={5} md={2}>
                   <Box display="flex" alignItems="center">
-                    <Typography variant="h6" sx={styles.h6}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMore />}
+                      variant="h6"
+                      sx={styles.h6}
+                    >
                       Tariff
-                    </Typography>
-                    <ExpandMore />
+                    </AccordionSummary>
                   </Box>
                 </Grid>
                 <Grid item xs={5} md={2}>
@@ -111,7 +115,13 @@ export default function MobileList() {
                     Ab 5,99 &#8364;/Monat
                   </Typography>
                 </Grid>
-                <Grid item xs={10} md={2} display="flex" justifyContent="center">
+                <Grid
+                  item
+                  xs={10}
+                  md={2}
+                  display="flex"
+                  justifyContent="center"
+                >
                   <Button
                     variant="contained"
                     color="primary"
@@ -147,7 +157,7 @@ export default function MobileList() {
                       <Typography fontWeight={900} sx={{ mb: 2, ...styles.p }}>
                         Tarifname: {tariff?.name}
                       </Typography>
-                      <Grid container columns={10} >
+                      <Grid container columns={10}>
                         <Grid item xs={5} md={2}>
                           <img
                             src={`${process.env.REACT_APP_API_URL}${company?.logo}`}
@@ -172,12 +182,12 @@ export default function MobileList() {
                           </Typography>
                         </Grid>
                         <Grid item xs={5} md={2}>
-                          <Link onClick={() => setOpenModal(true)}>
-                            <Box display="flex" alignItems="center" mt={2}>
-                              <InfoOutlinedIcon
-                                variant="outlined"
-                                sx={{ color: "#000" }}
-                              />
+                          <Box display="flex" alignItems="center" mt={2}>
+                            <InfoOutlinedIcon
+                              variant="outlined"
+                              sx={{ color: "#000" }}
+                            />
+                            <Link to={tariff?.product_info_url}>
                               <Typography
                                 variant="p"
                                 fontSize={14}
@@ -185,12 +195,13 @@ export default function MobileList() {
                               >
                                 TARIF-DETAILS
                               </Typography>
-                            </Box>
-                          </Link>
+                            </Link>
+                          </Box>
                         </Grid>
                         <Grid
                           item
-                          xs={10} md={2}
+                          xs={10}
+                          md={2}
                           display="flex"
                           justifyContent="center"
                           alignItems="center"

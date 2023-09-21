@@ -111,13 +111,10 @@ export default function MobileList() {
                 </Grid>
                 <Grid item xs={7} md={1}>
                   <Box display="flex" alignItems="center">
-                    <AccordionSummary
-                      expandIcon={<ExpandMore />}
-                      variant="h6"
-                      sx={styles.h6}
-                    >
+                    <Typography variant="h6" sx={styles.h6}>
                       Tariff
-                    </AccordionSummary>
+                    </Typography>
+                    <ExpandMore />
                   </Box>
                 </Grid>
                 <Grid item xs={12} md={2} align="center">
@@ -155,11 +152,11 @@ export default function MobileList() {
                 </Grid>
                 <Grid item xs={7} md={2} align="center">
                   <Typography variant="h5" sx={styles.h5}>
-                    17.300
+                    {bank?.amount_free_withdrawl}
                   </Typography>
                   <Typography variant="p" sx={styles.p}>
                     <Typography color="primary">kostenlose</Typography>{" "}
-                    Geldautomaten in Deustslandhello
+                    Geldautomaten in Deustsland
                   </Typography>
                 </Grid>
                 <Grid item xs={7} md={3}>
@@ -214,6 +211,7 @@ export default function MobileList() {
                     <Paper key={i} sx={{ p: 2, mb: 3 }}>
                       {/* <Typography fontWeight={900} sx={{ mb: 2 }}>
                     Tarifname: {tariff?.name}
+                    
                   </Typography> */}
                       <Grid
                         container
@@ -264,7 +262,7 @@ export default function MobileList() {
                           <Typography sx={styles.p}>
                             Jahresbeitrag , fur gesellschaftliches Wirken
                           </Typography>
-                          <Typography sx={styles.p}>60 €/Jahr</Typography>
+                          <Typography sx={styles.p}>{tariff?.total_price} €/Jahr</Typography>
                         </Grid>
                         <Grid
                           item
@@ -292,7 +290,7 @@ export default function MobileList() {
                               <Typography
                                 variant="p"
                                 fontSize={14}
-                                sx={{ ...styles.p, color: "#000" }}
+                                sx={{ color: "#000", ...styles.p }}
                               >
                                 TARIF-DETAILS
                               </Typography>

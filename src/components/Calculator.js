@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import {
   Box,
-  styled,
-  Switch,
-  Typography,
   Grid,
-  TextField,
+  Switch,
+  styled,
   Button,
+  TextField,
+  Typography,
   ButtonGroup,
-  InputAdornment,
+  Autocomplete,
   OutlinedInput,
+  InputAdornment,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import calcBg from "../assets/images/other/calculatorBg.jpg";
@@ -41,6 +42,8 @@ export default function Calculator({ setTariffData }) {
   const [switchPower, setSwitchPower] = useState(true);
   const [numPers, setNumPers] = useState(0);
   const [consumption, setConsumption] = useState(0);
+  const [city, setCity] = useState([]);
+  const [selectedCity, setSelectedCity] = useState([]);
 
   const initState = {
     plz: "",
@@ -75,27 +78,35 @@ export default function Calculator({ setTariffData }) {
   };
 
   const handleClick = () => {
-    data.fetchLocations(plz).then((res) =>
+    const { zipCode } = selectedCity;
+
+    data.fetchLocations(zipCode).then((res) => {
       res?.[0].operatorIds.map((operatorId) =>
         data
           .fetchSwitchRates({
             energy: "power",
             consumption,
-            zipCode: plz,
+            zipCode: zipCode,
             city: res?.[0].city,
             operatorId,
           })
-          .then((tariffInfo) => setTariffData(tariffInfo?.switchRates))
-      )
-    );
+          .then((tariffInfo) => {
+            setTariffData(tariffInfo?.switchRates);
+          })
+      );
+    });
   };
 
   const handleChange = (e) => {
+    const { value } = e.target;
+    data.fetchLocations(value).then((res) => {
+      setCity(res);
+    });
+
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const { plz } = formData;
-
   useEffect(() => {
     switch (numPers) {
       case 1:
@@ -113,7 +124,7 @@ export default function Calculator({ setTariffData }) {
 
   return (
     <Box sx={style.calculator}>
-      <Grid
+      {/* <Grid
         container
         justifyContent="center"
         alignItems="center"
@@ -151,7 +162,7 @@ export default function Calculator({ setTariffData }) {
           />
           <Typography fontWeight={!switchPrivate && 900}>Business</Typography>
         </Grid>
-      </Grid>
+      </Grid> */}
       <Grid
         container
         justifyContent="center"
@@ -162,14 +173,29 @@ export default function Calculator({ setTariffData }) {
         border="2px solid #2c9b42"
       >
         <Grid item p={1}>
-          <TextField
-            name="plz"
-            sx={{ bgcolor: "background.light", borderRadius: "4px" }}
-            value={plz}
-            onChange={handleChange}
-            size="small"
-            placeholder="Deine PLZ"
-            fullWidth
+          <Autocomplete
+            disableCloseOnSelect
+            id="combo-box-demo"
+            options={city}
+            getOptionLabel={(option) => `${option.zipCode} ${option.city}`}
+            onChange={(event, value) => setSelectedCity(value)}
+            onBlur={()=>setCity([])}
+            sx={{
+              bgcolor: "background.light",
+              borderRadius: "4px",
+              width: "300px",
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                name="plz"
+                sx={{ bgcolor: "background.light", borderRadius: "4px" }}
+                value={plz}
+                onChange={handleChange}
+                size="small"
+                fullWidth
+              />
+            )}
           />
         </Grid>
         <Grid item p={1} ml={1} mr={1}>

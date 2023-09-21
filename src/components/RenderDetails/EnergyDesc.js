@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import Modal from "../Modal";
 import TariffDetails from "./TariffDetails";
 import styles from "../typography/StyleTypography";
-export default function EnergyDesc({ data, RenderPieChart }) {
+export default function EnergyDesc({ data, RenderPieChart, index }) {
   const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
       <Modal open={openModal} setOpen={setOpenModal}>
@@ -64,11 +65,12 @@ export default function EnergyDesc({ data, RenderPieChart }) {
             Strommix ({data?.energyMixYear})
           </Typography>
           <Box display="flex" width="100%">
-            <Box sx={{ mt: 3 }}>
+            <Box>
               <RenderPieChart
                 energyMix={data?.energyMix}
                 size={"100%"}
                 showLabel={true}
+                index={index}
               />
             </Box>
             <Box>
@@ -82,11 +84,11 @@ export default function EnergyDesc({ data, RenderPieChart }) {
                         borderRadius: "50%",
                         background:
                           energy.source === "wind"
-                            ? "#bbe4e9"
+                            ? " #7CD0E0"
                             : energy.source === "hydro"
-                            ? "#2e79ba"
+                            ? "#006180"
                             : energy.source === "solar"
-                            ? "#f7aa00"
+                            ? "#EDD81D"
                             : energy.source === "nuclear"
                             ? "#c9fdd7"
                             : "black",
@@ -125,8 +127,8 @@ export default function EnergyDesc({ data, RenderPieChart }) {
 
 const style = {
   title: {
+    ...styles.p,
     fontWeight: 900,
     fontSize: "20px",
-    ...styles.p,
   },
 };

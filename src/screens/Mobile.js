@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { Box, Container } from "@mui/material";
 import SectionHeading from "../components/typography/SectionHeading";
 import AdSection from "../components/AdSection";
 import RenderDetails from "../components/RenderDetails";
 import { Parallax } from "react-parallax";
 import Checkbox from "../components/CheckboxHeader";
+import Registration from "../components/RenderDetails/Registration";
 
 export default function Mobile() {
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const style = {
     container: { mx: "auto", mt: "12em", mb: "7em" },
   };
@@ -33,8 +36,9 @@ export default function Mobile() {
             text1={"Wie groß ist der Fußabdruck unserer Fixkosten?"}
             text2={"Kostencheck: wie viel kostet es mich mehr?"}
           />
-          <RenderDetails type={"telecom"} />
+          {isSubscribed && <RenderDetails type={"telecom"} />}
         </Container>
+        {!isSubscribed && <Registration />}
       </Box>
     </Box>
   );

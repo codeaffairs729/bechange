@@ -9,49 +9,48 @@ import {
 } from "@mui/material";
 
 export default function CompareSignUp({
-  setSelectedBank,
-  setSelectedEnergy,
-  setSelectedSim,
-  setSelectedInsurance,
+  setSelectedServices,
+  selectedServices,
 }) {
   const items = [
     {
       id: 0,
+      name: "energy",
       title: "Energie",
       desc: "Ökostrom: wirklich und unabhängig",
       link: "/energie",
       icon: <img src="./planet.png" width={"80px"} alt="Earth Icon" />,
-      setService: setSelectedEnergy,
     },
     {
       id: 1,
+      name: "bank",
       title: "Banking",
       desc: "Sozial-okoligisches Konto für's Gemeinwohl",
       link: "/banking",
       icon: <img src="./growth.png" width={"80px"} alt="Banking Icon" />,
-      setService: setSelectedBank,
     },
     {
       id: 2,
+      name: "sim",
       title: "Mobilfunk",
       desc: "Fairer Klima- und Datenschutz",
       link: "/",
       icon: <img src="./sim-card.png" width={"80px"} alt="Sim-Card Icon" />,
-      setService: setSelectedSim,
     },
     {
       id: 3,
+      name: "insurance",
       title: "Versicherung",
       desc: "Leistung für einen nachhaltigen Lebensstil",
       link: "/",
       icon: <img src="./protection.png" width={"80px"} alt="Earth Icon" />,
-      setService: setSelectedInsurance,
     },
   ];
 
-  const handleOnChecked = (setService, isChecked) => {
-    setService(isChecked);
+  const handleOnChecked = (name, isChecked) => {
+    setSelectedServices({ ...selectedServices, [name]: isChecked });
   };
+
   return (
     <Container sx={{ width: "100%", mx: "auto", my: 5, textAlign: "center" }}>
       <Grid container spacing={2}>
@@ -72,9 +71,7 @@ export default function CompareSignUp({
                 <Typography variant="h5">{item.title}</Typography>
                 <Typography variant="body2">{item.desc}</Typography>
                 <Checkbox
-                  onChange={(e) =>
-                    handleOnChecked(item.setService, e.target.checked)
-                  }
+                  onChange={(e) => handleOnChecked(item.name, e.target.checked)}
                 />
               </Paper>
             </Grid>

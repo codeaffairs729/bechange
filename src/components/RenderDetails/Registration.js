@@ -61,14 +61,19 @@ const infoBoxText =
 
 export default function Registration() {
   const [open, setOpen] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
-  const [selectedBank, setSelectedBank] = useState(false);
-  const [selectedEnergy, setSelectedEnergy] = useState(false);
-  const [selectedSim, setSelectedSim] = useState(false);
-  const [selectedInsurance, setSelectedInsurance] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+
+  const [selectedServices, setSelectedServices] = useState({
+    bank: false,
+    energy: false,
+    sim: false,
+    insurance: false,
+  });
 
   const handleTooltipClose = () => {
     setOpen(false);
@@ -79,6 +84,8 @@ export default function Registration() {
   };
 
   const handleOnSubmit = () => {
+    console.log({ formData });
+    console.log({ selectedServices });
   };
 
   return (
@@ -100,8 +107,10 @@ export default function Registration() {
               sx={{ bgcolor: "#fff", borderRadius: "8px" }}
               size="small"
               placeholder="vorname"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={formData.firstName}
+              onChange={(e) =>
+                setFormData({ ...formData, firstName: e.target.value })
+              }
               required
               fullWidth
             />
@@ -113,8 +122,10 @@ export default function Registration() {
               sx={{ bgcolor: "#fff", borderRadius: "8px" }}
               size="small"
               placeholder="Nachname"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={formData.lastName}
+              onChange={(e) =>
+                setFormData({ ...formData, lastName: e.target.value })
+              }
               required
               fullWidth
             />
@@ -126,8 +137,10 @@ export default function Registration() {
               sx={{ bgcolor: "#fff", borderRadius: "8px" }}
               size="small"
               placeholder="E-mail Addresse"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               fullWidth
             />
           </Grid>
@@ -135,10 +148,8 @@ export default function Registration() {
         <Grid>
           <Grid container mt={2} sx={style.cardDetails}>
             <CompareSignUp
-              setSelectedBank={setSelectedBank}
-              setSelectedEnergy={setSelectedEnergy}
-              setSelectedSim={setSelectedSim}
-              setSelectedInsurance={setSelectedInsurance}
+              setSelectedServices={setSelectedServices}
+              selectedServices={selectedServices}
             />
           </Grid>
         </Grid>
@@ -156,12 +167,7 @@ export default function Registration() {
           </Button>
         </Box>
 
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          mt={2}
-        >
+        <Box display="flex" justifyContent="center" alignItems="center" mt={2}>
           <Checkbox
             checked={isPrivacyChecked}
             onChange={(e) => {
@@ -228,7 +234,7 @@ export default function Registration() {
               justifyContent: "center",
               justifyItems: "center",
               alignItems: "center",
-              alignContent:"center"
+              alignContent: "center",
             }}
           >
             <img
@@ -237,7 +243,12 @@ export default function Registration() {
               height={"45px"}
               alt={service.alt}
             />
-            <Typography variant="h6" fontWeight={900} sx={styles.h6} mt={{xs:1,sm:5}}>
+            <Typography
+              variant="h6"
+              fontWeight={900}
+              sx={styles.h6}
+              mt={{ xs: 1, sm: 5 }}
+            >
               {service.title}
             </Typography>
             <Typography sx={styles.p}>{service.desc}</Typography>

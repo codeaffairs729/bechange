@@ -1,11 +1,15 @@
+import { useState } from "react";
 import { Box, Container } from "@mui/material";
 import SectionHeading from "../components/typography/SectionHeading";
 import AdSection from "../components/AdSection";
 import RenderDetails from "../components/RenderDetails";
 import { Parallax } from "react-parallax";
 import Checkbox from "../components/CheckboxHeader";
+import Registration from "../components/RenderDetails/Registration";
 
 export default function Banking() {
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
   const style = {
     container: { mx: "auto", mt: "12em", mb: "7em" },
   };
@@ -30,8 +34,9 @@ export default function Banking() {
             text1={"Bio? Selbes gilt für Ökostrom"}
             text2={"Kostencheck: wie viel kostet es mich mehr?"}
           />
-          <RenderDetails type={"banking"} />
+          {isSubscribed && <RenderDetails type={"banking"} />}
         </Container>
+        {!isSubscribed && <Registration />}
       </Box>
     </Box>
   );

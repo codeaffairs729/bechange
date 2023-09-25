@@ -1,5 +1,6 @@
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import styles from "./typography/StyleTypography";
+import Registration from "./RenderDetails/Registration";
 
 export default function AdSection({ title, desc, text1, text2 }) {
   const style = {

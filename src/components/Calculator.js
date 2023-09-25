@@ -37,7 +37,7 @@ export const MuiSwitchLarge = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export default function Calculator({ setTariffData }) {
+export default function Calculator({ setTariffData, handleCalculate }) {
   const [switchPrivate, setSwitchPrivate] = useState(true);
   const [switchPower, setSwitchPower] = useState(true);
   const [numPers, setNumPers] = useState(0);
@@ -95,6 +95,7 @@ export default function Calculator({ setTariffData }) {
           })
       );
     });
+    handleCalculate();
   };
 
   const handleChange = (e) => {
@@ -179,7 +180,7 @@ export default function Calculator({ setTariffData }) {
             options={city}
             getOptionLabel={(option) => `${option.zipCode} ${option.city}`}
             onChange={(event, value) => setSelectedCity(value)}
-            onBlur={()=>setCity([])}
+            onBlur={() => setCity([])}
             sx={{
               bgcolor: "background.light",
               borderRadius: "4px",

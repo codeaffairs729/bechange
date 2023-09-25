@@ -176,14 +176,35 @@ export default function MobileList() {
                   <img src="/visa.png" alt="visa" />
                   <img src="/mastercard.png" alt="mastercard" />
                 </Grid>
-                <Grid item xs={7} md={2} display="flex" justifyContent="end">
+                <Grid
+                  item
+                  xs={7}
+                  md={2}
+                  display="flex"
+                  alignContent="center"
+                  alignItems="center"
+                  justifyContent="center"
+                  flexDirection="column"
+                  gap={2}
+                >
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={() => getBankingTariffs(bank?._id)}
                   >
                     Wechseln
-                  </Button>
+                  </Button>{" "}
+                  <Link to={bank?.fair_finance_url}>
+                    <Box display="flex" alignItems="center" mt={2} gap={1}>
+                      <InfoOutlinedIcon
+                        variant="outlined"
+                        sx={{ color: "#000" }}
+                      />
+                      <Typography variant="p" sx={styles.p1}>
+                        Fair Finance
+                      </Typography>
+                    </Box>
+                  </Link>
                 </Grid>
               </Grid>
             </AccordionSummary>
@@ -262,7 +283,9 @@ export default function MobileList() {
                           <Typography sx={styles.p}>
                             Jahresbeitrag , fur gesellschaftliches Wirken
                           </Typography>
-                          <Typography sx={styles.p}>{tariff?.total_price} €/Jahr</Typography>
+                          <Typography sx={styles.p}>
+                            {tariff?.total_price} €/Jahr
+                          </Typography>
                         </Grid>
                         <Grid
                           item

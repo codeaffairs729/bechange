@@ -1,12 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  Container,
-  Grid,
-  Paper,
-  Typography,
-  Checkbox,
-} from "@mui/material";
+import { Container, Grid, Paper, Typography, Checkbox } from "@mui/material";
 
 export default function CompareSignUp({
   setSelectedServices,

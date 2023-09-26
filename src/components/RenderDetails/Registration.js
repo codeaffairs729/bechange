@@ -48,20 +48,18 @@ export default function Registration() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  };
 
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
+    const validationErrors = validateForm({ ...formData, [name]: value });
 
-    const validationErrors = validateForm(formData);
     if (Object.keys(validationErrors).length === 0) {
-      console.log("Form data:", formData);
       setErrors({});
     } else {
       setErrors(validationErrors);
     }
-    console.log({formData});
-    console.log({selectedServices});
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
   };
 
   return (

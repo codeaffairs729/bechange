@@ -18,17 +18,20 @@ const Policy = ({ formData, setFormData, errors }) => {
   const handleTooltipOpen = () => {
     setOpen(true);
   };
+
+  const handleOnChange = (e) => {
+    setFormData({
+      ...formData,
+      ["isPrivacyChecked"]: e.target.checked,
+    });
+  };
+
   return (
     <>
       <Box display="flex" justifyContent="center" alignItems="center" mt={2}>
         <Checkbox
           checked={formData.isPrivacyChecked}
-          onChange={(e) => {
-            setFormData({
-              ...formData,
-              ["isPrivacyChecked"]: e.target.checked,
-            });
-          }}
+          onChange={handleOnChange}
         />
         <Typography sx={styles.p}>Datenschutzbestimmungen</Typography>
 
@@ -63,9 +66,9 @@ const Policy = ({ formData, setFormData, errors }) => {
           </Box>
         </ClickAwayListener>
       </Box>
-      {errors.isPrivacyChecked && (
+      {!formData.isPrivacyChecked && (
         <Typography sx={styles.p} color="#f44336">
-          {errors.isPrivacyChecked}
+          {formData.isPrivacyChecked ? "" : "Accept Policy"}
         </Typography>
       )}
     </>

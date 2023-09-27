@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useTheme from '@mui/material/styles/useTheme';
+import useTheme from "@mui/material/styles/useTheme";
 import {
-  AppBar,
   Box,
   Button,
   Container,
   IconButton,
-  Menu,
-  MenuItem,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { Menu as MenuIcon, Home } from "@mui/icons-material";
+import CloseIcon from "@mui/icons-material/Close";
+import MobileMenu from "../components/MobileMenu";
 
 const navItems = [
   // {
@@ -50,28 +49,40 @@ const navItems = [
     slug: "blog",
     variant: "text",
   },
+  {
+    title: "About",
+    slug: "about",
+    variant: "text",
+  },
 ];
 
 export default function Header() {
   const navigate = useNavigate();
-  const { screen } = useParams();
+  const [open, setOpen] = useState(true);
   const theme = useTheme();
 
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
+    setOpen(!open);
     setAnchorElNav(event.currentTarget);
   };
 
   const handleCloseNavMenu = (slug) => {
+    setOpen(!open);
     setAnchorElNav(null);
     navigate("/" + slug);
   };
 
   return (
-    <AppBar color="background">
+    <Box sx={{ position: "relative" }}>
       <Container maxWidth="lg">
-        <Toolbar disableGutters sx={{ minHeight: "64px !important" }}>
+        <Toolbar
+          disableGutters
+          sx={{
+            minHeight: "64px !important",
+          }}
+        >
           <Typography
             noWrap
             onClick={() => navigate("/")}
@@ -109,40 +120,16 @@ export default function Header() {
             <IconButton
               size="large"
               aria-label="account of current user"
-              aria-controls="menu-appbar"
+              aria-controls="menu-Box"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               sx={{ color: "#2c9b42" }}
             >
-              <MenuIcon />
+              {open ? <MenuIcon /> : <CloseIcon />}
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {navItems.map((item, i) => (
-                <MenuItem key={i} onClick={() => handleCloseNavMenu(item.slug)}>
-                  <Typography textAlign="center">{item.title}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
 
-          <Box sx={{ display: { xs: "none", md: "flex" }, gap: "2px" }}>
+          <Box sx={{ display: { xs: "none", md: "flex" }, gap: "4px" }}>
             {navItems.map((item, i) => (
               <Button
                 key={i}
@@ -153,14 +140,7 @@ export default function Header() {
                   borderRadius: "20px",
                   color: item.main ? "#fff" : "#000",
                 }}
-                variant={
-                  item.variant
-                  // item?.slug === screen
-                  //   ? 'contained'
-                  //   : item?.main
-                  //   ? 'outlined'
-                  //   : ''
-                }
+                variant={item.variant}
               >
                 <Box display="flex" alignItems="center" gap="6px">
                   {item.title === "Home" ? (
@@ -177,6 +157,13 @@ export default function Header() {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+      {!open && (
+        <MobileMenu
+          navItems={navItems}
+          handleOpenNavMenu={handleOpenNavMenu}
+          handleCloseNavMenu={handleCloseNavMenu}
+        />
+      )}
+    </Box>
   );
 }

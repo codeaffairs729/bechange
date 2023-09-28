@@ -111,14 +111,25 @@ export default function EnergyDesc({ data, RenderPieChart, index }) {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
-          <Typography sx={style.title}>Labels</Typography>
-          {data?.labels.map((label, i) => {
-            return (
-              <Typography key={i} sx={styles.p}>
-                {label.authority}
-              </Typography>
-            );
-          })}
+          <Typography sx={style.title} mb={1}>
+            Labels
+          </Typography>
+          <Grid container xs={12}>
+            {data?.labels.map((label, i) => {
+              return (
+                // <Typography key={i} sx={styles.p}>
+                //   {label.authority}
+                // </Typography>
+                <Grid item xs={6} p={1}>
+                  <img
+                    src={`./label/${label.authority}.png`}
+                    style={{ width: "80px" }}
+                    alt={`${label.authority}`}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
         </Grid>
       </Grid>
     </>

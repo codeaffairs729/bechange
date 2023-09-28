@@ -15,7 +15,7 @@ export default function Energy() {
   const [isSubscribed, setIsSubscribed] = useState(true);
 
   const handleCalculate = () => {
-    setIsSubscribed(false);
+    // setIsSubscribed(false);
   };
 
   return (
@@ -43,10 +43,22 @@ export default function Energy() {
           {isSubscribed && (
             <>
               <EnergyList tariffData={tariffData} />
-              <Box width="fit-content" ml="auto" mt={2}>
+              <Box
+                display="flex"
+                gap={2}
+                alignItems="center"
+                width="fit-content"
+                ml="auto"
+                mt={2}
+              >
                 <Typography variant="h5" sx={styles.h5}>
                   In Kooperation mit
                 </Typography>
+                <img
+                  src="/switch-for-climate.png"
+                  style={{ width: "150px" }}
+                  alt="switch-for-climate"
+                />
               </Box>
             </>
           )}

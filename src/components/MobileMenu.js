@@ -7,9 +7,8 @@ const MobileMenu = ({ navItems, handleCloseNavMenu }) => {
     Container: {
       position: "absolute",
       flexDirection: "column",
-      top: "63px",
       width: "100vw",
-      height: "calc(100vh - 63px);",
+      height: "100vh",
       zIndex: "1",
       borderRadius: "0px 0px 40px 40px",
       background: "linear-gradient(180deg,  #d9d0be 15%, #709A4C  50%)",

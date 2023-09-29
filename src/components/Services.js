@@ -7,19 +7,19 @@ const Services = () => {
     {
       title: "Wechselservice",
       img: "/search.png",
-      desc: "Aktueller und unabhangiger Vergleich von Preis & Leistung der qualitativ nachhaltigsten Anbieter",
+      desc: "Aktueller und unabhängiger Vergleich von Preis & Leistung der qualitativ nachhaltigsten Anbieter.",
       alt: "planet.png",
     },
     {
       title: "Optimieren",
       img: "/optimize.png",
-      desc: "Wir halter Deine Tarife im Blick undinformieren uber fristgerechte Verbesserungen",
+      desc: "Wir halten Deine Tarife im Blick und informieren über fristgerechte Verbesserungen.",
       alt: "optimize.png",
     },
     {
       title: "Ohne Extra-Kosten",
       img: "/display.png",
-      desc: "Provisionen werden ohne Kostenzuschlag fur Dichabgerechnet. Dein Bestarif ist unsere Mission ",
+      desc: "Provisionen werden ohne Kostenzuschlag für Dich abgerechnet. Dein Besttarif ist unsere Mission.",
       alt: "display.png",
     },
   ];
@@ -53,12 +53,7 @@ const Services = () => {
               alignContent: "center",
             }}
           >
-            <img
-              src={`./${service.img}`}
-              width={"45px"}
-              height={"45px"}
-              alt={service.alt}
-            />
+            <img src={`./${service.img}`} width={"90px"} alt={service.alt} />
             <Typography
               variant="h6"
               fontWeight={900}
@@ -72,7 +67,7 @@ const Services = () => {
         ))}
       </Grid>
       <Typography variant="h6" fontWeight={900} sx={styles.h6} mb={4}>
-        {"Einfach.Sicher.Unabhangig"}
+        {"Einfach. Sicher. Unabhängig."}
       </Typography>
       <Box>
         <img src={`/SSL.png`} width={"90px"} height={"94px"} alt={"SSL.png"} />

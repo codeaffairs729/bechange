@@ -1,26 +1,21 @@
 import { Container, Grid, Typography } from "@mui/material";
 
-export default function Partners() {
+export default function Partners2() {
   const items = [
     {
       id: 0,
-      src: "/bcorp.png",
+      src: "/fair.png",
       alt: "B Corop Certified",
     },
     {
       id: 1,
-      src: "/robinwood.png",
+      src: "/robin.jpg",
       alt: "RobinWood",
     },
     {
       id: 2,
-      src: "/okotest.png",
-      alt: "ÖkoTest",
-    },
-    {
-      id: 3,
-      src: "/utopia.png",
-      alt: "Utopia",
+      src: "/switch-for-climate.png",
+      alt: "RobinWood",
     },
   ];
 
@@ -43,14 +38,23 @@ export default function Partners() {
         <Grid item xs={7} sm={8}>
           <Grid
             container
-            spacing={2}
             sx={{
-              placeItems: "center",
+              display: "flex",
+              justifyContent: "space-between",
+              gap: ".3rem",
+              flexWrap: "nowrap",
             }}
           >
             {items.map((item) => {
               return (
-                <Grid item xs={3} lg={3} key={item.id}>
+                <Grid
+                  item
+                  key={item.id}
+                  sx={{
+                    display: "flex",
+                    height: { xs: "30px", sm: "80px", md: "120px" },
+                  }}
+                >
                   <img width={"100%"} src={item.src} alt={item.alt} />
                 </Grid>
               );

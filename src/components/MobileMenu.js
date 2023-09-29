@@ -34,7 +34,13 @@ const MobileMenu = ({ navItems, handleCloseNavMenu }) => {
   };
 
   return (
-    <Box sx={{ ...styles.Container, ...styles.flexCenter }}>
+    <Box
+      sx={{
+        ...styles.Container,
+        ...styles.flexCenter,
+        display: { xs: "flex", md: "none" },
+      }}
+    >
       {navItems.map((item, i) => (
         <Box
           key={i}

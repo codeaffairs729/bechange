@@ -20,11 +20,11 @@ export default function Mobile() {
 
   return (
     <Box>
-      <Parallax bgImage={"/cover.png"} strength={500}>
+      {/* <Parallax bgImage={"/cover.png"} strength={500}>
         <Box sx={style.container}>
           <Checkbox labels={labels} />
         </Box>
-      </Parallax>
+      </Parallax> */}
       <Box mt={5} mb={5}>
         <Container maxWidth="lg">
           <SectionHeading title={"Mobile"} />

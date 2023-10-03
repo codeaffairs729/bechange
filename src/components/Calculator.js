@@ -193,6 +193,7 @@ export default function Calculator({ setTariffData, handleCalculate }) {
                 sx={{ bgcolor: "background.light", borderRadius: "4px" }}
                 value={plz}
                 onChange={handleChange}
+                placeholder="Postleitzahl "
                 size="small"
                 fullWidth
               />
@@ -273,7 +274,7 @@ export default function Calculator({ setTariffData, handleCalculate }) {
         onClick={handleClick}
         sx={{ borderRadius: "20px", mt: 2 }}
       >
-        Compare
+        Vergleiche
       </Button>
     </Box>
   );

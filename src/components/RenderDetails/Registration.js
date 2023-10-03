@@ -44,7 +44,6 @@ export default function Registration() {
     sim: false,
     insurance: false,
   });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -66,7 +65,7 @@ export default function Registration() {
     <Box container sx={style.calculator} p={{ xs: 4, sm: 8, md: 10 }}>
       <Box mb={{ xs: 4, sm: 8 }}>
         <Typography variant="h3" fontWeight={900} sx={styles.h3}>
-          Gratis registrienren. Sofort vergleichen.
+          Gratis registrieren. Sofort vergleichen.
         </Typography>
         <Typography variant="h4" fontWeight={500} sx={styles.h4}>
           Tarife optimieren.
@@ -80,7 +79,7 @@ export default function Registration() {
               type="text"
               sx={{ bgcolor: "#fff", borderRadius: "8px" }}
               size="small"
-              placeholder="vorname"
+              placeholder="Vorname"
               value={formData.firstName}
               onChange={handleChange}
               fullWidth
@@ -110,7 +109,7 @@ export default function Registration() {
               type="email"
               sx={{ bgcolor: "#fff", borderRadius: "8px" }}
               size="small"
-              placeholder="E-mail Addresse"
+              placeholder="E-Mail-Adresse"
               value={formData.email}
               onChange={handleChange}
               fullWidth

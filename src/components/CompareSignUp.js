@@ -1,4 +1,11 @@
-import { Container, Grid, Paper, Typography, Checkbox } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  Checkbox,
+  Box,
+} from "@mui/material";
 
 export default function CompareSignUp({
   setSelectedServices,
@@ -11,31 +18,43 @@ export default function CompareSignUp({
       title: "Energie",
       desc: "Ökostrom: wirklich und unabhängig",
       link: "/energie",
-      icon: <img src="./planet.png" width={"80px"} alt="Earth Icon" />,
+      icon: {
+        path: "./planet.png",
+        alt: "Earth Icon",
+      },
     },
     {
       id: 1,
       name: "bank",
       title: "Banking",
-      desc: "Sozial-okoligisches Konto für's Gemeinwohl",
+      desc: "Ethisch und ökologisch für´s Gemeinwohl",
       link: "/banking",
-      icon: <img src="./growth.png" width={"80px"} alt="Banking Icon" />,
+      icon: {
+        path: "./growth.png",
+        alt: "Banking Icon",
+      },
     },
     {
       id: 2,
       name: "sim",
       title: "Mobilfunk",
-      desc: "Fairer Klima- und Datenschutz",
+      desc: "Faier Klima- und Datenschutz",
       link: "/",
-      icon: <img src="./sim-card.png" width={"80px"} alt="Sim-Card Icon" />,
+      icon: {
+        path: "./sim-card.png",
+        alt: "Sim-Card Icon",
+      },
     },
     {
       id: 3,
       name: "insurance",
       title: "Versicherung",
-      desc: "Leistung für einen nachhaltigen Lebensstil",
+      desc: "Leistungen für einen nachhaltigen Lebensstil",
       link: "/",
-      icon: <img src="./protection.png" width={"80px"} alt="Earth Icon" />,
+      icon: {
+        path: "./protection.png",
+        alt: "Earth Icon",
+      },
     },
   ];
 
@@ -48,7 +67,7 @@ export default function CompareSignUp({
       <Grid container spacing={2}>
         {items.map((item) => {
           return (
-            <Grid item xs={12} sm={6} lg={3} key={item.id}>
+            <Grid item xs={3} key={item.id}>
               <Paper
                 sx={{
                   display: "flex",
@@ -57,11 +76,28 @@ export default function CompareSignUp({
                   justifyContent: "space-between",
                   height: 1,
                   p: 2,
+                  opacity: item.id == 3 ? 0.5 : 1,
                 }}
               >
-                {item.icon}
-                <Typography variant="h5">{item.title}</Typography>
-                <Typography variant="body2">{item.desc}</Typography>
+                <Box sx={{ width: { xs: "30px", sm: "80px" } }}>
+                  <img
+                    src={item.icon.path}
+                    alt={item.icon.alt}
+                    width={"100%"}
+                  />
+                </Box>
+                <Typography
+                  variant="h5"
+                  sx={{ fontSize: { xs: ".5rem", sm: "1rem", md: "1.5rem" } }}
+                >
+                  {item.title}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ display: { xs: "none", sm: "flex" } }}
+                >
+                  {item.desc}
+                </Typography>
                 <Checkbox
                   onChange={(e) => handleOnChecked(item.name, e.target.checked)}
                 />

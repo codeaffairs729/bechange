@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./typography/StyleTypography";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
+import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 
 import { Box, Button, Tooltip, Typography, Checkbox } from "@mui/material";
 
@@ -10,6 +11,7 @@ const infoBoxText =
 
 const Policy = ({ formData, setFormData, errors }) => {
   const [open, setOpen] = useState(false);
+  const [terms, setTerms] = useState(false);
 
   const handleTooltipClose = () => {
     setOpen(false);
@@ -37,32 +39,9 @@ const Policy = ({ formData, setFormData, errors }) => {
 
         <ClickAwayListener onClickAway={handleTooltipClose}>
           <Box>
-            <Tooltip
-              PopperProps={{
-                disablePortal: true,
-              }}
-              componentsProps={{
-                tooltip: {
-                  sx: {
-                    backgroundColor: "white",
-                    color: "black",
-                    border: "2px solid black",
-                    padding: "4px",
-                  },
-                },
-              }}
-              onClose={handleTooltipClose}
-              open={open}
-              disableFocusListener
-              disableHoverListener
-              disableTouchListener
-              placement={"bottom-end"}
-              title={infoBoxText}
-            >
-              <Button onClick={handleTooltipOpen}>
-                <InfoOutlinedIcon variant="outlined" sx={{ color: "#000" }} />
-              </Button>
-            </Tooltip>
+            <Button onClick={() => setTerms(!terms)}>
+              <InfoOutlinedIcon variant="outlined" sx={{ color: "#000" }} />
+            </Button>
           </Box>
         </ClickAwayListener>
       </Box>
@@ -70,6 +49,36 @@ const Policy = ({ formData, setFormData, errors }) => {
         <Typography sx={styles.p} color="#f44336">
           {formData.isPrivacyChecked ? "" : "Accept Policy"}
         </Typography>
+      )}
+      {terms && (
+        <Box
+          sx={{
+            width: "300px",
+            background: "#fff",
+            padding: "4px",
+            border: "1px solid black",
+            borderRadius: "8px",
+          }}
+        >
+          <ul sx={{ listStyleType: "circle" }}>
+            <Typography
+              sx={{ ...styles.p, fontWeight: "bold", textAlign: "left" }}
+            >
+              Deine Daten werden
+            </Typography>
+            <li sx={{ listStyleType: "circle" }}>
+              <Typography sx={{ ...styles.p, textAlign: "left" }}>
+                geschützt nach gesetzlichen Bestimmungen (DSGVO/BDSG/TMG)
+              </Typography>{" "}
+            </li>
+            <li sx={{ listStyleType: "circle" }}>
+              <Typography sx={{ ...styles.p, textAlign: "left" }}>
+                nur bei Tarifabschluss an Dritte übermittelt (gewählter Anbieter
+                bzw. das gewählte Zahlungsinstitut)
+              </Typography>
+            </li>
+          </ul>
+        </Box>
       )}
     </>
   );

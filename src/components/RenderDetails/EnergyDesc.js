@@ -7,14 +7,14 @@ import TariffDetails from "./TariffDetails";
 import styles from "../typography/StyleTypography";
 export default function EnergyDesc({ data, RenderPieChart, index }) {
   const [openModal, setOpenModal] = useState(false);
-
+  // console.log({data});
   return (
     <>
       <Modal open={openModal} setOpen={setOpenModal}>
         <TariffDetails data={data} />
       </Modal>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} lg={3}>
+        <Grid item xs={6} sm={6} lg={3}>
           <Typography sx={style.title}>Tariff: {data?.name}</Typography>
           <Typography sx={{ mt: 1, ...styles.p }}>
             Preisgarantie:{" "}
@@ -60,11 +60,11 @@ export default function EnergyDesc({ data, RenderPieChart, index }) {
             </Link>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
+        <Grid item xs={6} sm={6} lg={3}>
           <Typography sx={style.title}>
             Strommix ({data?.energyMixYear})
           </Typography>
-          <Box display="flex" width="100%">
+          <Box display="flex" width="100%" mt={2}>
             <Box>
               <RenderPieChart
                 energyMix={data?.energyMix}
@@ -111,9 +111,7 @@ export default function EnergyDesc({ data, RenderPieChart, index }) {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
-          <Typography sx={style.title} mb={1}>
-            Labels
-          </Typography>
+          <Typography sx={style.title} mb={1}></Typography>
           <Grid container xs={12}>
             {data?.labels.map((label, i) => {
               return (

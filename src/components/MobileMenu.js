@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button } from "@mui/material";
 import { Menu as Home } from "@mui/icons-material";
 
-const MobileMenu = ({ navItems, handleCloseNavMenu }) => {
+const MobileMenu = ({ navItems, handleCloseNavMenu, screen }) => {
   const styles = {
     Container: {
       position: "absolute",
@@ -59,6 +59,7 @@ const MobileMenu = ({ navItems, handleCloseNavMenu }) => {
               ...styles.button,
               ...styles.flexCenter,
               color: item.main ? "#fff" : "#000",
+              background: item.active && (screen == item.slug ? "#385125" : ""),
             }}
             variant={item.variant}
           >

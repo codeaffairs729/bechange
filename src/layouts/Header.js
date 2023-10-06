@@ -24,6 +24,7 @@ const navItems = [
     main: true,
     icon: "/green-energy.png",
     variant: "contained",
+    active: true,
   },
   {
     title: "Banking",
@@ -31,6 +32,7 @@ const navItems = [
     main: true,
     icon: "/growth.png",
     variant: "contained",
+    active: true,
   },
   {
     title: "Mobilfunk",
@@ -38,27 +40,32 @@ const navItems = [
     main: true,
     icon: "/sim-card.png",
     variant: "contained",
+    active: true,
   },
   {
     title: "Qualität",
     slug: "qualitaet",
     variant: "text",
+    active: false,
   },
   {
     title: "Blog",
     slug: "blog",
     variant: "text",
+    active: false,
   },
   {
     title: "About",
     slug: "about",
     variant: "text",
+    active: false,
   },
 ];
 
 export default function Header() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
+
   const theme = useTheme();
 
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -73,6 +80,10 @@ export default function Header() {
     setAnchorElNav(null);
     navigate("/" + slug);
   };
+
+  const path = useParams();
+
+  const { screen } = path;
 
   return (
     <Box sx={{ position: "relative" }}>
@@ -129,16 +140,20 @@ export default function Header() {
             </IconButton>
           </Box>
 
-          <Box sx={{ display: { xs: "none", md: "flex" }, gap: "4px" }}>
+          <Box sx={{ display: { xs: "none", md: "flex" }, gap: "10px" }}>
             {navItems.map((item, i) => (
               <Button
                 key={i}
                 onClick={() => handleCloseNavMenu(item.slug)}
+                size="small"
                 sx={{
                   my: 2,
                   display: "block",
                   borderRadius: "20px",
                   color: item.main ? "#fff" : "#000",
+                  background:
+                    item.active &&
+                    (screen == item.slug ? "rgb(62, 100, 36)" : ""),
                 }}
                 variant={item.variant}
               >
@@ -149,7 +164,7 @@ export default function Header() {
                     item.title
                   )}
                   {item.icon && (
-                    <img src={item.icon} alt="button icon" width="20" />
+                    <img src={item.icon} alt="button icon" width="20px" />
                   )}
                 </Box>
               </Button>
@@ -160,6 +175,7 @@ export default function Header() {
       {!open && (
         <MobileMenu
           navItems={navItems}
+          screen={screen}
           handleOpenNavMenu={handleOpenNavMenu}
           handleCloseNavMenu={handleCloseNavMenu}
         />

@@ -8,8 +8,8 @@ const styles = {
   },
   h6: {
     fontSize: {
-      xs: "12px",
-      sm: "20px",
+      xs: "10px",
+      sm: "18px",
       lg: "24px",
     },
   },

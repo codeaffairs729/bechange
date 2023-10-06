@@ -8,7 +8,7 @@ import Checkbox from "../components/CheckboxHeader";
 import Registration from "../components/RenderDetails/Registration";
 
 export default function Mobile() {
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(true);
   const style = {
     container: { mx: "auto", mt: "12em", mb: "7em" },
   };
@@ -19,7 +19,7 @@ export default function Mobile() {
   ];
 
   return (
-    <Box>
+    <Box sx={{background:"#fffafa"}}>
       {/* <Parallax bgImage={"/cover.png"} strength={500}>
         <Box sx={style.container}>
           <Checkbox labels={labels} />

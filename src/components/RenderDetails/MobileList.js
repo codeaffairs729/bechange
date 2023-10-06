@@ -38,6 +38,15 @@ export default function MobileList() {
     (state) => state.telecom
   );
 
+  const networkImgage = [
+    "",
+
+    "Wetell_Logo_mit_Kreis_800x536_weisser_hintergrund.png.png",
+
+    "goood_logo_green_rgb.jpg.png",
+
+    "amiva-mobilfunk-logo.svg.png",
+  ];
   const getTariffs = (network) => {
     dispatch(getTelecomTariffs(network));
   };
@@ -61,7 +70,9 @@ export default function MobileList() {
         <TariffDetails />
       </Modal>{" "}
       {loading ? (
-        <CircularProgress />
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress />
+        </Box>
       ) : (
         companies?.map((company, i) => (
           <StyledAccordion
@@ -105,9 +116,9 @@ export default function MobileList() {
                 </Grid>
                 <Grid item xs={5} md={2}>
                   <img
-                    src={`${process.env.REACT_APP_API_URL}${company?.logo}`}
-                    width={"50%"}
-                    alt={company?.name}
+                    src={`/${networkImgage[company.network]}`}
+                    width={"40%"}
+                    alt={company?.network}
                   />
                 </Grid>
                 <Grid item xs={5} md={2}>
@@ -149,13 +160,15 @@ export default function MobileList() {
               </Grid>
               <Divider sx={{ my: 2 }} />
               {loadingTariffs ? (
-                <CircularProgress />
+                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                  <CircularProgress />
+                </Box>
               ) : (
                 tariffs?.map((tariff, i) => {
                   return (
                     <Paper key={i} sx={{ p: 2, mb: 3 }}>
                       <Typography fontWeight={900} sx={{ mb: 2, ...styles.p }}>
-                        Tarifname: {tariff?.name}
+                        {tariff?.name}
                       </Typography>
                       <Grid container columns={10}>
                         <Grid item xs={5} md={2}>
@@ -170,33 +183,44 @@ export default function MobileList() {
                             {renderItems(tariff?.details)}
                           </Typography>
                         </Grid>
-                        <Grid item xs={5} md={2}>
-                          <Typography fontWeight={900} sx={styles.p}>
-                            Tarifgebühr
-                          </Typography>
-                          <Typography sx={styles.p}>
-                            {tariff?.base_price}€/Monat
-                          </Typography>
-                          <Typography sx={styles.p}>
-                            {tariff?.setup_cost}€ Grundgebühr
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={5} md={2}>
-                          <Box display="flex" alignItems="center" mt={2}>
-                            <InfoOutlinedIcon
-                              variant="outlined"
-                              sx={{ color: "#000" }}
-                            />
-                            <Link to={tariff?.product_info_url}>
-                              <Typography
-                                variant="p"
-                                fontSize={14}
-                                sx={{ color: "#000", ...styles.p }}
-                              >
-                                TARIF-DETAILS
-                              </Typography>
-                            </Link>
+                        <Grid
+                          item
+                          xs={5}
+                          md={2}
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                            }}
+                          >
+                            <Typography fontWeight={900} sx={styles.p}>
+                              Tarifgebühr
+                            </Typography>
+                            <Typography sx={styles.p}>
+                              {tariff?.base_price}€/Monat
+                            </Typography>
+                            <Typography sx={styles.p}>
+                              {tariff?.setup_cost}€ Grundgebühr
+                            </Typography>
                           </Box>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={5}
+                          md={2}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Typography sx={styles.p} fontWeight={900}>
+                            {tariff?.data}
+                          </Typography>
                         </Grid>
                         <Grid
                           item
@@ -205,6 +229,7 @@ export default function MobileList() {
                           display="flex"
                           justifyContent="center"
                           alignItems="center"
+                          mt={4}
                         >
                           <Button
                             // component={Link}
@@ -217,25 +242,44 @@ export default function MobileList() {
                         </Grid>
                       </Grid>
                       <Divider sx={{ my: 2 }} />
-                      <Typography sx={styles.p} fontWeight={900}>
-                        Datenvolumen: {tariff?.data}
-                      </Typography>
+
+                      <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        mt={2}
+                      >
+                        <InfoOutlinedIcon
+                          variant="outlined"
+                          sx={{ color: "#000" }}
+                        />
+                        <Link to={tariff?.product_info_url}>
+                          <Typography
+                            variant="p"
+                            fontSize={14}
+                            sx={{ color: "#000", ...styles.p }}
+                          >
+                            TARIF-DETAILS
+                          </Typography>
+                        </Link>
+                      </Box>
                     </Paper>
                   );
                 })
               )}
               <Box mt={2}>
                 <Divider />
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  mt={1}
-                >
-                  <Typography variant="h6" sx={styles.h6}>
-                    Tarife
-                  </Typography>
-                  <ExpandLess />
+                <Box display="flex" alignItems="center" justifyContent="center">
+                  <AccordionSummary
+                    expandIcon={<ExpandLess />}
+                    variant="h6"
+                    sx={styles.h6}
+                    onClick={() => {
+                      setExpanded(!expanded);
+                    }}
+                  >
+                    Tariff
+                  </AccordionSummary>
                 </Box>
               </Box>
             </AccordionDetails>

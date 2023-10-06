@@ -39,7 +39,6 @@ export default function Compare({ setSectionToScroll, sectionToScroll }) {
 
   const sectionRef = useRef(null);
   useEffect(() => {
-    console.log("sectionRef");
     if (sectionRef.current && sectionToScroll) {
       sectionRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -49,17 +48,30 @@ export default function Compare({ setSectionToScroll, sectionToScroll }) {
     <Container
       ref={sectionRef}
       id={sectionToScroll}
+      maxWidth="xl"
       sx={{
-        width: { xs: "100%", sm: "90%" },
-        mx: "auto",
         my: 5,
         textAlign: "center",
+        background: "#fffafa",
+        border: { sm: ".5px solid lightgray" },
+        boxShadow: "2px  lightgray",
+        borderRadius: "20px 20px 10px 10px",
+        marginTop: "-20px",
+        position: "relative",
+        zIndex: "1000",
+        maxWidth: { xs: `calc(100% - 50px)` },
+        padding: "0px",
       }}
     >
-      <Grid container spacing={{ xs: 1, sm: 5 }}>
+      <Grid
+        container
+        spacing={{ xs: 4, sm: 16 }}
+        px={{ xs: 0, sm: 0 }}
+        py={{ xs: 0, sm: 3 }}
+      >
         {items.map((item) => {
           return (
-            <Grid item xs={3} sm={3} lg={3} key={item.id}>
+            <Grid item xs={12} sm={3} lg={3} key={item.id}>
               <Paper
                 sx={{
                   display: "flex",
@@ -69,22 +81,12 @@ export default function Compare({ setSectionToScroll, sectionToScroll }) {
                   height: 1,
                   p: 2,
                   opacity: item.id == 3 ? 0.5 : 1,
+                  borderRadius: { xs: "20px" },
                 }}
               >
-                <Box sx={{ width: { xs: "30px", sm: "80px" } }}>
-                  {item.icon}
-                </Box>
-                <Typography
-                  variant="h5"
-                  sx={{ fontSize: { xs: ".5rem", sm: "1rem", md: "1.5rem" } }}
-                >
-                  {item.title}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ display: { xs: "none", sm: "flex" } }}
-                  sectionToScroll
-                >
+                <Box sx={{ width: "80px" }}>{item.icon}</Box>
+                <Typography variant="h5">{item.title}</Typography>
+                <Typography variant="body2" sectionToScroll>
                   {item.desc}
                 </Typography>
                 <Button
@@ -92,7 +94,6 @@ export default function Compare({ setSectionToScroll, sectionToScroll }) {
                   onClick={() => navigate(item.id == 3 ? null : item.link)}
                   sx={{
                     my: 2,
-                    fontSize: { xs: "2px", sm: ".7rem" },
                     boxShadow: "2px 2px 2px 2px lightgray",
                     minWidth: "50px",
                   }}

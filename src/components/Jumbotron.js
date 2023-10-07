@@ -44,7 +44,7 @@ export default function Jumbotron({
           </Typography>
 
           {link && (
-            <Box onClick={handleClick} mt={5}>
+            <Box onClick={handleClick} mt={5} sx={{ cursor: 'pointer' }}>
               <Lottie options={defaultOptions} width={50} height={50} />
             </Box>
           )}

@@ -64,14 +64,25 @@ export default function Compare({ setSectionToScroll, sectionToScroll }) {
       }}
     >
       <Grid
-        container
-        spacing={{ xs: 4, sm: 16 }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: "20px",
+        }}
         px={{ xs: 0, sm: 0 }}
         py={{ xs: 0, sm: 3 }}
       >
         {items.map((item) => {
           return (
-            <Grid item xs={12} sm={3} lg={3} key={item.id}>
+            <Grid
+              item
+              xs={12}
+              sm={3}
+              lg={3}
+              key={item.id}
+              sx={{ flexBasis: { xs: "100%", sm: "17%" } }}
+            >
               <Paper
                 sx={{
                   display: "flex",

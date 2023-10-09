@@ -81,29 +81,16 @@ export default function EnergyList({ tariffData }) {
 
   return (
     <Box>
-      {/* <Accordion sx={{ mb: 3 }}>
-        <AccordionSummary>
-          <Typography variant='h5' sx={{ width: '22%', flexShrink: 0 }}>
-            Provider
-          </Typography>
-          <Typography variant='h5' sx={{ width: '23%', flexShrink: 0 }}>
-            Base Price
-          </Typography>
-          <Typography variant='h5' sx={{ width: '23%', flexShrink: 0 }}>
-            Working Price
-          </Typography>
-          <Typography variant='h5' sx={{ width: '23%', flexShrink: 0 }}>
-            Energy Mix
-          </Typography>
-        </AccordionSummary>
-      </Accordion> */}
       {tariffData?.map((data, index) => {
         return (
           <StyledAccordion
             key={data?.id}
             expanded={expanded === `panel${data?.id}`}
             onChange={handleChange(`panel${data?.id}`)}
-            sx={{ mt: 2, borderRadius: 4 }}
+            sx={{
+              mt: 2,
+              borderRadius: "16px 16px 16px 16px",
+            }}
           >
             <AccordionSummary
               aria-controls={`panel${data?.id}bh-content`}
@@ -112,10 +99,12 @@ export default function EnergyList({ tariffData }) {
             >
               <Grid
                 container
-                sx={style.flexCenter}
                 columns={20}
                 width="100%"
                 spacing={4}
+                sx={{
+                  ...style.flexCenter,
+                }}
               >
                 <Grid item md={4} xs={10}>
                   <Typography
@@ -208,6 +197,9 @@ export default function EnergyList({ tariffData }) {
                 data={data}
                 RenderPieChart={RenderPieChart}
                 index={index}
+                setExpanded={setExpanded}
+                expanded={expanded}
+                target={`#panel${data?.id}bh-header`}
               />
             </AccordionDetails>
           </StyledAccordion>

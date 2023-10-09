@@ -64,8 +64,6 @@ export default function MobileList() {
   //     dispatch(getTelecomTariffs(network));
   //   };
 
-  
-
   const handleChange = (panel, isExpanded, bankId) => {
     setExpanded(isExpanded ? panel : false);
     isExpanded && dispatch(getBankingTariffs(bankId));
@@ -111,16 +109,19 @@ export default function MobileList() {
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
-                columns={{ xs: 12, sm: 14 }}
+                gap={4}
+                columns={{ xs: 12, sm: 13 }}
                 sx={{ display: "flex" }}
               >
-                <Grid xs={12} sm={6} sx={{ display: "flex", gap: "2px" }}>
-                  <Grid item xs={4} sm={6}>
-                    <img
-                      src={`${process.env.REACT_APP_API_URL}${bank?.logo}`}
-                      width="100%"
-                      alt={bank?.name}
-                    />
+                <Grid item xs={12} sm={6} sx={{ display: "flex", gap: "2px" }}>
+                  <Grid item xs={4} sm={6} sx={{ overflow: "hidden" }}>
+                    <Box>
+                      <img
+                        src={`${process.env.REACT_APP_API_URL}${bank?.logo}`}
+                        width="80%"
+                        alt={bank?.name}
+                      />
+                    </Box>
                     <Box display="flex" gap={1}>
                       <Box
                         sx={{
@@ -152,7 +153,7 @@ export default function MobileList() {
                         flexDirection: "column",
                         alignItems: "center",
                         alignContent: "center",
-                        padding: "8px",
+                        padding: "12px",
                       }}
                     >
                       <PieChart
@@ -172,7 +173,7 @@ export default function MobileList() {
                         sx={{
                           width: "100px",
                           marginRight: "auto",
-                          fontSize: "12px",
+                          fontSize: "8px",
                           fontWeight: "600",
                           fill: "#fff",
                         }}
@@ -185,6 +186,9 @@ export default function MobileList() {
                         }
                         labelPosition={100 - 60 / 2}
                         animate
+                        labelStyle={{
+                          fontSize: "8px",
+                        }}
                       />
                       <Link to={bank?.fair_finance_url}>
                         <Box
@@ -228,7 +232,7 @@ export default function MobileList() {
                   </Grid>
                 </Grid>
                 <Grid xs={12} sm={6} sx={{ display: "flex" }}>
-                  <Grid item xs={8} sm={6}>
+                  <Grid item xs={8} sm={5}>
                     <Typography variant="p" sx={styles.p1}>
                       0 &#8364; Debitkarte
                     </Typography>
@@ -242,8 +246,9 @@ export default function MobileList() {
                     </Typography>
                   </Grid>
                   <Grid
+                    item
                     xs={4}
-                    sm={6}
+                    sm={7}
                     sx={{
                       display: "flex",
                       flexDirection: { xs: "column", sm: "row" },
@@ -292,7 +297,7 @@ export default function MobileList() {
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Grid container sx={{ justifyContent: "space-between" }}>
+              <Grid container sx={{ justifyContent: "space-evenly" }}>
                 <Grid item xs={12} sm={5} mb={2}>
                   <Typography variant="h6" sx={styles.h6} fontWeight={900}>
                     Über {bank?.name}
@@ -348,17 +353,29 @@ export default function MobileList() {
                             alignContent: "center",
                           }}
                         >
-                          <Typography sx={{ ...styles.p, fontWeight: "bold" ,textAlign: "center "}}>
+                          <Typography
+                            sx={{
+                              ...styles.p,
+                              fontWeight: "bold",
+                              textAlign: "center ",
+                            }}
+                          >
                             {tariff?.name}
                           </Typography>
 
-                          <Typography sx={{ ...styles.p, textAlign: "center " }}>
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             Grundgebühr: {tariff?.base_price}€/month
                           </Typography>
-                          <Typography sx={{ ...styles.p, textAlign: "center " }}>
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             Girokonto: {tariff?.girocard_fee}€/Jahr
                           </Typography>
-                          <Typography sx={{ ...styles.p, textAlign: "center " }}>
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             Kreditkarte: {tariff?.creditcard_fee}€/Jahr
                           </Typography>
                         </Grid>
@@ -368,10 +385,14 @@ export default function MobileList() {
                           flexItem
                         />
                         <Grid item xs={10} md={2}>
-                          <Typography sx={{ ...styles.p, textAlign: "center " }}>
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             {tariff?.dispo} Disponzins
                           </Typography>
-                          <Typography sx={{ ...styles.p, textAlign: "center " }}>
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             {tariff?.habenzins} Habenzins
                           </Typography>
                         </Grid>
@@ -381,10 +402,14 @@ export default function MobileList() {
                           flexItem
                         />
                         <Grid item xs={10} md={2}>
-                          <Typography sx={{ ...styles.p, textAlign: "center " }}>
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             Jahresbeitrag , fur gesellschaftliches Wirken
                           </Typography>
-                          <Typography sx={{ ...styles.p, textAlign: "center " }}>
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             {tariff?.total_price} €/Jahr
                           </Typography>
                         </Grid>
@@ -429,16 +454,21 @@ export default function MobileList() {
               <Box mt={2}>
                 <Divider />
                 <Box display="flex" alignItems="center" justifyContent="center">
-                  <AccordionSummary
-                    expandIcon={<ExpandLess />}
-                    variant="h6"
-                    sx={styles.h6}
-                    onClick={() => {
-                      setExpanded(!expanded);
-                    }}
+                  <a
+                    href={`#panel${i}bh-header`}
+                    style={{ textDecoration: "none", color: "inherit" }}
                   >
-                    Tariff
-                  </AccordionSummary>
+                    <AccordionSummary
+                      expandIcon={<ExpandLess />}
+                      variant="h6"
+                      sx={styles.h6}
+                      onClick={() => {
+                        setExpanded(!expanded);
+                      }}
+                    >
+                      Tariff
+                    </AccordionSummary>
+                  </a>
                 </Box>
               </Box>
             </AccordionDetails>

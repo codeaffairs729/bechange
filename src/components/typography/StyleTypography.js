@@ -1,4 +1,14 @@
 const styles = {
+  h2: {
+    fontSize: {
+      xs: "12px",
+      sm: "16px",
+      lg: "20px",
+    },
+    fontWeight: {
+      xs: 900,
+    },
+  },
   p: {
     fontSize: {
       xs: "12px",

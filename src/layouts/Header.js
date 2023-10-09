@@ -64,7 +64,7 @@ const navItems = [
 
 export default function Header() {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const theme = useTheme();
 
@@ -76,7 +76,7 @@ export default function Header() {
   };
 
   const handleCloseNavMenu = (slug) => {
-    setOpen(!open);
+    setOpen(false);
     setAnchorElNav(null);
     navigate("/" + slug);
   };
@@ -86,7 +86,7 @@ export default function Header() {
   const { screen } = path;
 
   return (
-    <Box sx={{ position: "relative" }}>
+    <Box id="hero-section" sx={{ position: "relative" }}>
       <Container maxWidth="lg">
         <Toolbar
           disableGutters
@@ -126,7 +126,6 @@ export default function Header() {
           >
             <img src="./logo_final.svg" width={"200px"} alt="Logo" />
           </Typography>
-
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -136,7 +135,7 @@ export default function Header() {
               onClick={handleOpenNavMenu}
               sx={{ color: "#2c9b42" }}
             >
-              {open ? <MenuIcon /> : <CloseIcon />}
+              {open ? <CloseIcon /> : <MenuIcon />}
             </IconButton>
           </Box>
 
@@ -172,7 +171,7 @@ export default function Header() {
           </Box>
         </Toolbar>
       </Container>
-      {!open && (
+      {open && (
         <MobileMenu
           navItems={navItems}
           screen={screen}

@@ -47,7 +47,9 @@ export default function Blog() {
       <Jumbotron title={'Blog'} />
       <Container style={style.container}>
         {loading ? (
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
           <CircularProgress />
+        </Box>
         ) : (
           <>
             {general?.map(gen => (

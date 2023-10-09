@@ -24,10 +24,23 @@ import { StyledAccordion } from "../Common";
 
 export default function MobileList() {
   const [openModal, setOpenModal] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+
   const dispatch = useDispatch();
 
   const [expanded, setExpanded] = useState(false);
 
+  const handleResize = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  });
   const style = {
     payButton: {
       border: "1px solid black",
@@ -70,7 +83,11 @@ export default function MobileList() {
         <TariffDetails />
       </Modal>
       {loading ? (
-        <CircularProgress />
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <CircularProgress />
+          </Box>
+        </Box>
       ) : (
         banks?.map((bank, i) => (
           <StyledAccordion
@@ -92,125 +109,196 @@ export default function MobileList() {
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
-                columns={14}
+                gap={4}
+                columns={{ xs: 12, sm: 13 }}
+                sx={{ display: "flex" }}
               >
-                <Grid item xs={7} md={2}>
-                  <img
-                    src={`${process.env.REACT_APP_API_URL}${bank?.logo}`}
-                    width="80%"
-                    alt={bank?.name}
-                  />
-                  <Box display="flex" gap={1}>
-                    <Box sx={style.payButton}>
-                      <img src="/g-pay.png" width="40px" alt="Google pay" />
-                    </Box>
-                    <Box sx={style.payButton}>
-                      <img src="/apple-pay.png" width="40px" alt="Apple pay" />
-                    </Box>
-                  </Box>
-                </Grid>
-                <Grid item xs={7} md={1}>
-                  <Box display="flex" alignItems="center">
-                    <Typography variant="h6" sx={styles.h6}>
-                      Tariff
-                    </Typography>
-                    <ExpandMore />
-                  </Box>
-                </Grid>
-                <Grid item xs={12} md={2} align="center">
-                  <PieChart
-                    data={[
-                      {
-                        title: "Fair Finance Score",
-                        value: bank?.fair_finance_score,
-                        color: "green",
-                      },
-                      {
-                        title: "Reference",
-                        value: 100 - bank?.fair_finance_score,
-                        color: "#eee",
-                      },
-                    ]}
-                    lineWidth={50}
-                    style={{
-                      width: "100px",
-                      marginRight: "auto",
-                      fontSize: "9px",
-                      fontWeight: "600",
-                      fill: "#fff",
-                    }}
-                    segmentsStyle={{
-                      transition: "stroke .3s",
-                      cursor: "pointer",
-                    }}
-                    label={({ dataEntry }) =>
-                      dataEntry?.value && `${dataEntry?.value}%`
-                    }
-                    labelPosition={100 - 60 / 2}
-                    animate
-                  />
-                </Grid>
-                <Grid item xs={7} md={2} align="center">
-                  <Typography variant="h5" sx={styles.h5}>
-                    {bank?.amount_free_withdrawl}
-                  </Typography>
-                  <Typography variant="p" sx={styles.p}>
-                    <Typography color="primary">kostenlose</Typography>{" "}
-                    Geldautomaten in Deustsland
-                  </Typography>
-                </Grid>
-                <Grid item xs={7} md={3}>
-                  <Typography variant="p" sx={styles.p1}>
-                    0 &#8364; Debitkarte
-                  </Typography>
-                  <br />
-                  <Typography variant="p" sx={styles.p1}>
-                    0 &#8364; Kreditkarte
-                  </Typography>
-                  <br />
-                  <Typography variant="p" sx={styles.p1} color="primary">
-                    ab 3,70 &#8364; mtl.kontofuhrung
-                  </Typography>
-                </Grid>
-                <Grid item xs={7} md={1}>
-                  <img src="/visa.png" alt="visa" />
-                  <img src="/mastercard.png" alt="mastercard" />
-                </Grid>
-                <Grid
-                  item
-                  xs={7}
-                  md={2}
-                  display="flex"
-                  alignContent="center"
-                  alignItems="center"
-                  justifyContent="center"
-                  flexDirection="column"
-                  gap={2}
-                >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => getBankingTariffs(bank?._id)}
-                  >
-                    Wechseln
-                  </Button>{" "}
-                  <Link to={bank?.fair_finance_url}>
-                    <Box display="flex" alignItems="center" mt={2} gap={1}>
-                      <InfoOutlinedIcon
-                        variant="outlined"
-                        sx={{ color: "#000" }}
+                <Grid item xs={12} sm={6} sx={{ display: "flex", gap: "2px" }}>
+                  <Grid item xs={4} sm={6} sx={{ overflow: "hidden" }}>
+                    <Box>
+                      <img
+                        src={`${process.env.REACT_APP_API_URL}${bank?.logo}`}
+                        width="80%"
+                        alt={bank?.name}
                       />
-                      <Typography variant="p" sx={styles.p1}>
-                        Fair Finance
-                      </Typography>
                     </Box>
-                  </Link>
+                    <Box display="flex" gap={1}>
+                      <Box
+                        sx={{
+                          ...style.payButton,
+                          width: { xs: "60px", sm: "60px" },
+                        }}
+                      >
+                        <img src="/g-pay.png" width="100%" alt="Google pay" />
+                      </Box>
+                      <Box
+                        sx={{
+                          ...style.payButton,
+                          width: { xs: "60px", sm: "60px" },
+                        }}
+                      >
+                        <img
+                          src="/apple-pay.png"
+                          width="100%"
+                          alt="Apple pay"
+                        />
+                      </Box>
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={4} sm={4} display="flex">
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        alignContent: "center",
+                        padding: "12px",
+                      }}
+                    >
+                      <PieChart
+                        data={[
+                          {
+                            title: "Fair Finance Score",
+                            value: bank?.fair_finance_score,
+                            color: "green",
+                          },
+                          {
+                            title: "Reference",
+                            value: 100 - bank?.fair_finance_score,
+                            color: "#eee",
+                          },
+                        ]}
+                        lineWidth={50}
+                        sx={{
+                          width: "100px",
+                          marginRight: "auto",
+                          fontSize: "8px",
+                          fontWeight: "600",
+                          fill: "#fff",
+                        }}
+                        segmentsStyle={{
+                          transition: "stroke .3s",
+                          cursor: "pointer",
+                        }}
+                        label={({ dataEntry }) =>
+                          dataEntry?.value && `${dataEntry?.value}%`
+                        }
+                        labelPosition={100 - 60 / 2}
+                        animate
+                        labelStyle={{
+                          fontSize: "8px",
+                        }}
+                      />
+                      <Link to={bank?.fair_finance_url}>
+                        <Box
+                          display={{ xs: "none", sm: "flex" }}
+                          alignItems="center"
+                          mt={2}
+                          gap={1}
+                        >
+                          <InfoOutlinedIcon
+                            variant="outlined"
+                            sx={{ color: "#000" }}
+                          />
+                          <Typography variant="p" sx={styles.p1}>
+                            Fair Finance
+                          </Typography>
+                        </Box>
+                      </Link>
+                    </Box>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={4}
+                    sm={3}
+                    align="center"
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography variant="p" sx={styles.p1}>
+                      {bank?.amount_free_withdrawl}
+                    </Typography>
+                    <Typography variant="p" sx={styles.p1}>
+                      <Typography color="primary" variant="p" sx={styles.p1}>
+                        kostenlose
+                      </Typography>{" "}
+                      Geldautomaten in Deustsland
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid xs={12} sm={6} sx={{ display: "flex" }}>
+                  <Grid item xs={8} sm={5}>
+                    <Typography variant="p" sx={styles.p1}>
+                      0 &#8364; Debitkarte
+                    </Typography>
+                    <br />
+                    <Typography variant="p" sx={styles.p1}>
+                      0 &#8364; Kreditkarte
+                    </Typography>
+                    <br />
+                    <Typography variant="p" sx={styles.p1} color="primary">
+                      ab 3,70 &#8364; mtl.kontofuhrung
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={4}
+                    sm={7}
+                    sx={{
+                      display: "flex",
+                      flexDirection: { xs: "column", sm: "row" },
+                      alignContent: "center",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Grid
+                      item
+                      xs={8}
+                      sm={8}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img src="/visa.png" alt="visa" />
+                      <img src="/mastercard.png" alt="mastercard" />
+                    </Grid>
+                    <Grid
+                      item
+                      xs={4}
+                      sm={4}
+                      display="flex"
+                      alignContent="center"
+                      alignItems="center"
+                      justifyContent="center"
+                      flexDirection="column"
+                      gap={2}
+                      maxWidth="20px"
+                    >
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size={width < 600 ? "small" : "large"}
+                        onClick={() => getBankingTariffs(bank?._id)}
+                        fontSize={{ xs: 12, sm: 16 }}
+                      >
+                        Mehr
+                      </Button>{" "}
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </AccordionSummary>
             <AccordionDetails>
-              <Grid container sx={{ justifyContent: "space-between" }}>
-                <Grid item xs={12} sm={5}>
+              <Grid container sx={{ justifyContent: "space-evenly" }}>
+                <Grid item xs={12} sm={5} mb={2}>
                   <Typography variant="h6" sx={styles.h6} fontWeight={900}>
                     Über {bank?.name}
                   </Typography>
@@ -225,7 +313,11 @@ export default function MobileList() {
               </Grid>
               <Divider sx={{ my: 2 }} />
               {loadingBankTariffs ? (
-                <CircularProgress />
+                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <CircularProgress />
+                  </Box>
+                </Box>
               ) : (
                 tariffs?.map((tariff, i) => {
                   return (
@@ -240,6 +332,7 @@ export default function MobileList() {
                         display="flex"
                         alignContent="center"
                         justifyContent="center"
+                        alignItems="center"
                         columns={11}
                       >
                         <Grid item xs={10} md={2}>
@@ -250,14 +343,39 @@ export default function MobileList() {
                           />
                         </Grid>
 
-                        <Grid item xs={10} md={2}>
-                          <Typography sx={styles.p}>
+                        <Grid
+                          item
+                          xs={10}
+                          md={2}
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignContent: "center",
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              ...styles.p,
+                              fontWeight: "bold",
+                              textAlign: "center ",
+                            }}
+                          >
+                            {tariff?.name}
+                          </Typography>
+
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             Grundgebühr: {tariff?.base_price}€/month
                           </Typography>
-                          <Typography sx={styles.p}>
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             Girokonto: {tariff?.girocard_fee}€/Jahr
                           </Typography>
-                          <Typography sx={styles.p}>
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             Kreditkarte: {tariff?.creditcard_fee}€/Jahr
                           </Typography>
                         </Grid>
@@ -267,10 +385,14 @@ export default function MobileList() {
                           flexItem
                         />
                         <Grid item xs={10} md={2}>
-                          <Typography sx={styles.p}>
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             {tariff?.dispo} Disponzins
                           </Typography>
-                          <Typography sx={styles.p}>
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             {tariff?.habenzins} Habenzins
                           </Typography>
                         </Grid>
@@ -280,10 +402,14 @@ export default function MobileList() {
                           flexItem
                         />
                         <Grid item xs={10} md={2}>
-                          <Typography sx={styles.p}>
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             Jahresbeitrag , fur gesellschaftliches Wirken
                           </Typography>
-                          <Typography sx={styles.p}>
+                          <Typography
+                            sx={{ ...styles.p, textAlign: "center " }}
+                          >
                             {tariff?.total_price} €/Jahr
                           </Typography>
                         </Grid>
@@ -327,16 +453,22 @@ export default function MobileList() {
               )}
               <Box mt={2}>
                 <Divider />
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  mt={1}
-                >
-                  <Typography variant="h6" sx={styles.h6}>
-                    Tarife
-                  </Typography>
-                  <ExpandLess />
+                <Box display="flex" alignItems="center" justifyContent="center">
+                  <a
+                    href={`#panel${i}bh-header`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <AccordionSummary
+                      expandIcon={<ExpandLess />}
+                      variant="h6"
+                      sx={styles.h6}
+                      onClick={() => {
+                        setExpanded(!expanded);
+                      }}
+                    >
+                      Tariff
+                    </AccordionSummary>
+                  </a>
                 </Box>
               </Box>
             </AccordionDetails>

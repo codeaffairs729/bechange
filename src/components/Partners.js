@@ -26,7 +26,13 @@ export default function Partners() {
 
   return (
     <Container sx={{ my: 5 }}>
-      <Grid container spacing={{ xs: 1, sm: 10 }} sx={{ placeItems: "center" }}>
+      <Grid
+        container
+        spacing={{ xs: 1, sm: 10 }}
+        sx={{
+          placeItems: "center",
+        }}
+      >
         <Grid item xs={5} sm={4}>
           <Typography
             variant="h6"

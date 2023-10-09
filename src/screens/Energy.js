@@ -19,7 +19,7 @@ export default function Energy() {
   };
 
   return (
-    <Box>
+    <Box sx={{background:"#fffafa"}}>
       <Parallax bgImage={"/cover.png"} strength={500}>
         <Box sx={style.container}>
           <Calculator

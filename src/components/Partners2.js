@@ -12,11 +12,6 @@ export default function Partners2() {
       src: "/robin.jpg",
       alt: "RobinWood",
     },
-    {
-      id: 2,
-      src: "/switch-for-climate.png",
-      alt: "RobinWood",
-    },
   ];
 
   return (
@@ -40,8 +35,8 @@ export default function Partners2() {
             container
             sx={{
               display: "flex",
-              justifyContent: "space-between",
-              gap: ".3rem",
+              justifyContent: "space-evenly",
+              gap: "1rem",
               flexWrap: "nowrap",
             }}
           >
@@ -52,7 +47,7 @@ export default function Partners2() {
                   key={item.id}
                   sx={{
                     display: "flex",
-                    height: { xs: "30px", sm: "80px", md: "120px" },
+                    height: { xs: "50px", sm: "80px", md: "120px" },
                   }}
                 >
                   <img width={"100%"} src={item.src} alt={item.alt} />

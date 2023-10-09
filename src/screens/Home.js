@@ -9,34 +9,32 @@ import AdSection from "../components/AdSection";
 import { useState, useEffect } from "react";
 
 export default function Home() {
-  const [sectionToScroll, setSectionToScroll] = useState('');
+  const [sectionToScroll, setSectionToScroll] = useState("");
 
   const handleScroll = () => {
     if (window.scrollY > 0) {
-      setSectionToScroll('');
+      setSectionToScroll("");
     }
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
-    <Box component="main" sx={{ flexGrow: 1 }}>
+    <Box component="main" sx={{ flexGrow: 1, background: "#fffafa" ,border:"1px solid"}}>
       <Jumbotron
         title={"Dein wirklich grünes Vergleichsportal"}
         desc={"Transparent, sicher & einfach"}
         btnText={"Vergleiche"}
         link={true}
-        setSectionToScroll={setSectionToScroll} 
+        setSectionToScroll={setSectionToScroll}
       />
-      <Compare sectionToScroll={sectionToScroll}  id={sectionToScroll} />
-      <Divider />
-      <Partners />
+      <Compare sectionToScroll={sectionToScroll} id={sectionToScroll} />
       <Divider />
       <Partners2 />
       <Divider />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Box,
   Grid,
@@ -34,6 +34,12 @@ export const MuiSwitchLarge = styled(Switch)(({ theme }) => ({
   },
   "& .MuiSwitch-track": {
     borderRadius: 20 / 2,
+  },
+}));
+
+export const StyledTextField = styled(TextField)(({ theme }) => ({
+  "& input": {
+    textAlign: "center",
   },
 }));
 
@@ -187,10 +193,14 @@ export default function Calculator({ setTariffData, handleCalculate }) {
               width: "300px",
             }}
             renderInput={(params) => (
-              <TextField
+              <StyledTextField
                 {...params}
                 name="plz"
-                sx={{ bgcolor: "background.light", borderRadius: "4px" }}
+                sx={{
+                  bgcolor: "background.light",
+                  borderRadius: "4px"
+                }}
+
                 value={plz}
                 onChange={handleChange}
                 placeholder="Postleitzahl "

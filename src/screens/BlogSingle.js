@@ -38,7 +38,9 @@ export default function BlogSingle() {
   }, [article, setTags]);
 
   return loading ? (
-    <CircularProgress />
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress />
+        </Box>
   ) : (
     <>
       <Jumbotron

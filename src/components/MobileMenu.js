@@ -9,7 +9,7 @@ const MobileMenu = ({ navItems, handleCloseNavMenu, screen }) => {
       flexDirection: "column",
       width: "100vw",
       height: "100vh",
-      zIndex: "1",
+      zIndex: "9999",
       borderRadius: "0px 0px 40px 40px",
       background: "linear-gradient(180deg,  #d9d0be 15%, #709A4C  50%)",
     },

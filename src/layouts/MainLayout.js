@@ -1,28 +1,31 @@
-import { useParams } from 'react-router-dom';
-import { Box, CssBaseline } from '@mui/material';
-import Footer from './Footer';
-import Header from './Header';
-import Energy from '../screens/Energy';
-import Home from '../screens/Home';
-import Mobile from '../screens/Mobile';
-import Quality from '../screens/Quality';
-import Banking from '../screens/Banking';
-import Blog from '../screens/Blog';
-import BlogSingle from '../screens/BlogSingle';
+import { useParams } from "react-router-dom";
+import { Box, CssBaseline } from "@mui/material";
+import Footer from "./Footer";
+import Header from "./Header";
+import Energy from "../screens/Energy";
+import Home from "../screens/Home";
+import Mobile from "../screens/Mobile";
+import Quality from "../screens/Quality";
+import Banking from "../screens/Banking";
+import Blog from "../screens/Blog";
+import BlogSingle from "../screens/BlogSingle";
+import About from "../screens/About";
 
 const RenderPage = () => {
   const { screen } = useParams();
   switch (screen) {
-    case 'energie':
+    case "energie":
       return <Energy />;
-    case 'mobile-funk':
+    case "mobile-funk":
       return <Mobile />;
-    case 'banking':
+    case "banking":
       return <Banking />;
-    case 'qualitaet':
+    case "qualitaet":
       return <Quality />;
-    case 'blog':
+    case "blog":
       return <Blog />;
+    case "about":
+      return <About />;
     default:
       return <Home />;
   }

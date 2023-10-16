@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import Consumer from "../components/about/Consumer";
+import Profile from "../components/about/Profile";
+import StandForSection from "../components/about/StandForSection";
 import { Box, Button, CircularProgress, Container } from "@mui/material";
 import { Parallax } from "react-parallax";
 
@@ -11,29 +13,81 @@ export default function About() {
       width: "100%",
       mx: "auto",
       mt: "2em",
-      mb: "3em",
-      // height: "500px",
       display: "flex",
       justifyContent: "center",
+      justifyItems: "center",
       alignContent: "center",
       alignItems: "center",
     },
+
     h2: {
       fontSize: {
         xs: "20px",
         sm: "40px",
         lg: "40px",
       },
+      fontFamily: "Playfair Display, serif",
+      fontWeight: "bold",
+    },
+
+    heading: {
+      fontSize: {
+        xs: "14px",
+        sm: "16px",
+        lg: "18px",
+      },
+      fontFamily: "Playfair Display, serif",
+      fontWeight: "bold",
     },
     h3: {
       fontSize: {
+        xs: "14px",
+        sm: "16px",
+        lg: "18px",
+      },
+      fontWeight: "bold",
+    },
+    h3_2: {
+      fontSize: {
+        xs: "14px",
+        sm: "16px",
+        lg: "18px",
+      },
+      fontFamily: "Playfair Display, serif",
+      fontWeight: "bold",
+    },
+    p1: {
+      fontSize: {
         xs: "12px",
         sm: "16px",
-        lg: "20px",
       },
-      fonWeight: 900,
+      fontFamily: "Ubuntu, sans-serif",
+      lineHeight: "1.5",
+    },
+    borderStyle: {
+      border: "0.5px solid lightgray",
+      borderRadius: "16px",
+      boxShadow: "0px 0px 9px 2px rgba(0,0,0,0.1)",
+    },
+    flexCenter: {
+      display: "flex",
+      justifyContent: "center",
+      justifyItems: "center",
+      alignContent: "center",
+      alignItems: "center",
+    },
+
+    h4: {
+      fontSize: {
+        xs: "11px",
+        sm: "16px",
+        lg: "px",
+      },
+      fontFamily: "Playfair Display, serif",
+      fontWeight: "bold",
       marginBottom: {
-        xs: "1rem",
+        xs: "5px",
+        sm: "1rem",
       },
     },
     p: {
@@ -41,15 +95,13 @@ export default function About() {
         xs: "12px",
         sm: "16px",
       },
+      fontFamily: "Ubuntu, sans-serif",
+      lineHeight: "1.5",
       marginBottom: {
-        xs: "1rem",
+        xs: "0.5rem",
+        sm: "1rem",
       },
     },
-    borderStyle: {
-      border: "1px solid lightgray",
-      borderRadius: "16px",
-    },
-    paper: { p: 2, my: 2 },
   };
 
   const handleResize = () => {
@@ -64,7 +116,7 @@ export default function About() {
   });
 
   return (
-    <Box sx={{ background: "#FFFAFA" }} mb={8}>
+    <Box sx={{ background: "#FFFAFA" }}>
       <Parallax bgImage={"/AboutDesktop.png"} strength={500}>
         <Box sx={style.container} py={25}>
           <Button
@@ -79,7 +131,6 @@ export default function About() {
               height: "50px",
               borderRadius: "16px",
             }}
-            onClick={() => {}}
           ></Button>
         </Box>
       </Parallax>
@@ -90,7 +141,9 @@ export default function About() {
           </Box>
         ) : (
           <Box>
-            <Consumer />
+            <Consumer style={style} />
+            <StandForSection style={style} />
+            <Profile style={style} />
           </Box>
         )}
       </Container>

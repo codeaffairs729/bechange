@@ -10,6 +10,9 @@ import Banking from "../screens/Banking";
 import Blog from "../screens/Blog";
 import BlogSingle from "../screens/BlogSingle";
 import About from "../screens/About";
+import Imprint from "../components/Imprint";
+import Terms from "../components/Terms";
+import Privacy from "../components/Privacy";
 
 const RenderPage = () => {
   const { screen } = useParams();
@@ -26,6 +29,12 @@ const RenderPage = () => {
       return <Blog />;
     case "about":
       return <About />;
+    case "imprint":
+      return <Imprint />;
+    case "terms":
+      return <Terms />;
+    case "privacy":
+      return <Privacy />;
     default:
       return <Home />;
   }

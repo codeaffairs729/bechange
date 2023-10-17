@@ -1,4 +1,11 @@
 const styles = {
+  flexCenter: {
+    display: "flex",
+    justifyContent: "center",
+    justifyItems: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
   h2: {
     fontSize: {
       xs: "12px",

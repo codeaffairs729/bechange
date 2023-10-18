@@ -97,7 +97,7 @@ const terms = [
       "3.2 Durch Ausfüllen des auf der Website bereitgestellten Bestellformulars und Anklicken der Schaltfläche &quot;Kauf abschließen&quot; erteilt der Benutzer BeChange (und für Strom unseren Partner Switch for Climate) den Auftrag, dem ausgewählten Stromversorgungsunternehmen ein rechtlich verbindliches Angebot des Benutzers zur Abwicklung eines Versorgungsvertrags zu den im Tarifvergleich für den jeweiligen Tarif angezeigten Bedingungen zu übermitteln. ",
       "3.3 Die Nutzung des Wechselservice ist für den Benutzer kostenlos. Wenn ein Versorgungsvertrag abgeschlossen wird, können für die Nutzung der Dienstleistungen des Versorgungsunternehmens Kosten für den Benutzer anfallen.",
       "3.4 BeChange hat keinen Einfluss darauf, ob ein Vertrag tatsächlich zwischen dem Benutzer und dem Versorgungsunternehmen abgeschlossen wird. Die Entscheidung zur Annahme des Angebots des Benutzers liegt allein im Ermessen des jeweiligen Anbieters.",
-      "3.5 Im Falle des Abschlusses eines Versorgungsvertrags wird dieser ausschließlich zwischen dem einzelnen Anbieter und dem Benutzer abgeschlossen. BeChange ist nicht an der Erbringung von Dienstleistungen durch das Versorgungsunternehmen beteiligt. Insbesondere bietet BeChange selbst keine Energie-/Bankwesen-/Telekommunikations-/Versicherungsdienstleistungen an.",
+      "3.5 Im Falle des Abschlusses eines Versorgungsvertrags wird dieser ausschließlich zwischen dem einzelnen Anbieter und dem Benutzer abgeschlossen. BeChange ist nicht an der Erbringung von Dienstleistungen durch das Versorgungsunternehmen beteiligt. ",
       "3.6 BeChange handelt eigenständig und tritt nicht als Vertreter eines bestimmten Versorgungsunternehmens auf. Die Abgabe von Willenserklärungen und die Vornahme anderer rechtlich relevanter Handlungen im Hinblick auf das Vertragsverhältnis zwischen dem Benutzer und dem Anbieter erfolgen ausschließlich gegenüber dem Anbieter. Dies gilt insbesondere für einen Widerruf des Vertragsangebots durch den Benutzer.",
     ],
   },
@@ -156,13 +156,13 @@ const terms = [
     title:
       "11 Informationen zur Online-Streitbeilegung gemäß ODR-Verordnung 524/2013",
     desc: [
-      "Die EU-Kommission stellt eine Plattform zur außergerichtlichen Online-Streitbeilegung (ODR-Plattform) zur Verfügung, die unter",
+      "Die EU-Kommission stellt eine Plattform zur außergerichtlichen",
+      " Online-Streitbeilegung (ODR-Plattform) zur Verfügung, die unter",
     ],
   },
 ];
 
 const Terms = () => {
-  console.log({ terms });
   return (
     <Box
       py={{ xs: 0, sm: 4 }}
@@ -194,6 +194,8 @@ const Terms = () => {
           {term.desc.map((info) => (
             <Typography
               variant="p"
+              noWrap={false}
+              align={"start"}
               sx={{
                 ...style.p,
               }}

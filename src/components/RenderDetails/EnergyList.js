@@ -33,7 +33,8 @@ export default function EnergyList({ tariffData }) {
       window.removeEventListener("resize", handleResize);
     };
   });
-  const RenderPieChart = ({ energyMix, size, showLabel, index }) => {
+
+  const RenderPieChart = ({ energyMix, size, showLabel, index, type }) => {
     const pieData = energyMix?.map((energy) => {
       return {
         title: energy.source,
@@ -64,7 +65,9 @@ export default function EnergyList({ tariffData }) {
           fill: "#fff",
           display: "flex",
           justifyContent: "flex-end",
-          marginLeft: "25px",
+          padding: type === "summary" ? "0px" : "5px",
+          marginLeft:
+            type === "summary" ? (width > 600 ? "0px" : "25px") : "0px",
         }}
         segmentsStyle={{ transition: "stroke .3s", cursor: "pointer" }}
         animate={index === animateIndex}
@@ -134,6 +137,7 @@ export default function EnergyList({ tariffData }) {
                     energyMix={data.energyMix}
                     size={"50px"}
                     index={index}
+                    type={"summary"}
                   />
                 </Grid>
                 <Grid item md={4} xs={10}>
@@ -169,7 +173,7 @@ export default function EnergyList({ tariffData }) {
                 </Grid>
                 <Grid
                   item
-                  md={2}
+                  md={3}
                   xs={10}
                   display="flex"
                   alignItems="end"

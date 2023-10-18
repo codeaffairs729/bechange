@@ -205,7 +205,7 @@ const Imprint = () => {
         <Link to="https://bechange.earth"> https://bechange.earth </Link>
       </Typography>
       <Typography variant="p" sx={style.p}>
-        E-Mail:<Link to="info@bechLinknge.earth"> info@bechLinknge.earth</Link>
+        E-Mail: <a href="mailto:info@bechange.earth">info@bechange.earth</a>
       </Typography>
       <Typography
         variant="h2"
@@ -217,13 +217,13 @@ const Imprint = () => {
       </Typography>
       {iconInfo.map((icon) => (
         <Typography variant="p" sx={style.p1}>
-          <Link to={icon.link}> {icon.name}</Link>
+          <Link to={icon.link}> {icon.name}</Link>&nbsp;&nbsp;
           {icon.created}
         </Typography>
       ))}
       <Typography variant="p" sx={style.p}>
-        AI-Images created by Midjourney, inspired by
-        <Link to={"https://www.leonatsume.com/"}>Leo Natsume</Link>
+        AI-Images created by Midjourney, inspired by&nbsp;
+        <Link to={"https://www.leonatsume.com/"}>Leo Natsume</Link>&nbsp;
       </Typography>
       <Typography
         variant="h2"

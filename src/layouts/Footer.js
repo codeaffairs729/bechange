@@ -234,15 +234,17 @@ export default function Footer() {
                 Impressum
               </Button>
             </Link>
-            <Button
-              sx={{
-                ml: { xs: 0, sm: 3 },
-                ...styles.buttonSyling,
-              }}
-              size="small"
-            >
-              Datenschutz
-            </Button>
+            <Link to="/privacy">
+              <Button
+                sx={{
+                  ml: { xs: 0, sm: 3 },
+                  ...styles.buttonSyling,
+                }}
+                size="small"
+              >
+                Datenschutz
+              </Button>
+            </Link>
             <Link to="/terms">
               <Button
                 sx={{

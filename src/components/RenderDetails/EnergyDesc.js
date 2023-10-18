@@ -14,8 +14,19 @@ export default function EnergyDesc({
   setExpanded,
   expanded,
   target,
+  labelName,
 }) {
   const [openModal, setOpenModal] = useState(false);
+
+  console.log("labelName des", labelName);
+
+  const isLabel = [
+    "ÖKO-TEST AG",
+    "Öko-Institut e.V.",
+    "TÜV NORD CERT GmbH",
+    "Grüner Strom Label e.V.",
+    "eKomi Ltd.",
+  ];
   return (
     <>
       <Modal open={openModal} setOpen={setOpenModal}>
@@ -79,6 +90,7 @@ export default function EnergyDesc({
                 size={"100%"}
                 showLabel={true}
                 index={index}
+                type={"details"}
               />
             </Box>
             <Box>
@@ -126,13 +138,16 @@ export default function EnergyDesc({
                 // <Typography key={i} sx={styles.p}>
                 //   {label.authority}
                 // </Typography>
-                <Grid item xs={6} p={1}>
-                  <img
-                    src={`./label/${label.authority}.png`}
-                    style={{ width: "80px" }}
-                    alt={`${label.authority}`}
-                  />
-                </Grid>
+
+                <Box item xs={6} p={1}>
+                  {isLabel.includes(label.authority) && (
+                    <img
+                      src={`./label/${label.authority}.png`}
+                      style={{ width: "80px" }}
+                      alt={`${label.authority}`}
+                    />
+                  )}
+                </Box>
               );
             })}
           </Grid>

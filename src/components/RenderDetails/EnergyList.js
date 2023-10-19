@@ -33,7 +33,8 @@ export default function EnergyList({ tariffData }) {
       window.removeEventListener("resize", handleResize);
     };
   });
-  const RenderPieChart = ({ energyMix, size, showLabel, index }) => {
+
+  const RenderPieChart = ({ energyMix, size, showLabel, index, type }) => {
     const pieData = energyMix?.map((energy) => {
       return {
         title: energy.source,
@@ -63,7 +64,10 @@ export default function EnergyList({ tariffData }) {
           fontWeight: "600",
           fill: "#fff",
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "flex-end",
+          padding: type === "summary" ? "0px" : "5px",
+          marginLeft:
+            type === "summary" ? (width > 600 ? "0px" : "25px") : "0px",
         }}
         segmentsStyle={{ transition: "stroke .3s", cursor: "pointer" }}
         animate={index === animateIndex}
@@ -101,32 +105,25 @@ export default function EnergyList({ tariffData }) {
                 container
                 columns={20}
                 width="100%"
-                spacing={4}
+                spacing={2}
                 sx={{
                   ...style.flexCenter,
                 }}
               >
-                <Grid item md={4} xs={10}>
-                  <Typography
-                    variant="h6"
+                <Grid item md={5} xs={10}>
+                  <Box
+                    height={{ xs: 25, sm: 50 }}
                     sx={{
-                      ...styles.h6,
                       display: "flex",
-                      justifyContent: { sm: "left" },
+                      justifyContent: { xs: "center", sm: "flex-start" },
                     }}
                   >
-                    {data.name}
-                  </Typography>
-                  {/* <p>
-                    `{process.env.REACT_APP_API_URL}
-                    {data?.provider?.logo.url}`
-                  </p> */}
-                  {/* <img
-                    src={tariffData[0].provider.logo.url}
-                    src={`${process.env.REACT_APP_API_URL}${tariffData[0].provider.logo.url}`}
-                    width={"50%"}
-                    alt={data?.provider?.logo.url}
-                  /> */}
+                    <img
+                      src={`/energy/${data.provider.name}.svg`}
+                      height="100%"
+                      alt={`${data.provider.name}.svg`}
+                    />
+                  </Box>
                 </Grid>
                 <Grid
                   item
@@ -140,9 +137,10 @@ export default function EnergyList({ tariffData }) {
                     energyMix={data.energyMix}
                     size={"50px"}
                     index={index}
+                    type={"summary"}
                   />
                 </Grid>
-                <Grid item md={5} xs={10}>
+                <Grid item md={4} xs={10}>
                   <Box sx={style.flexCenter} flexDirection="column">
                     <Typography variant="h5" color="primary" sx={styles.h5}>
                       {Math.round(data.price.workingPrice * 100) / 100}{" "}
@@ -175,7 +173,7 @@ export default function EnergyList({ tariffData }) {
                 </Grid>
                 <Grid
                   item
-                  md={4}
+                  md={3}
                   xs={10}
                   display="flex"
                   alignItems="end"

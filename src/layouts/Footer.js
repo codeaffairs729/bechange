@@ -11,6 +11,7 @@ import { Instagram, Pinterest, LinkedIn } from "@mui/icons-material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useNavigate, useParams } from "react-router-dom";
 import { Menu as MenuIcon, Home } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -228,27 +229,33 @@ export default function Footer() {
             sm={4}
             mt={{ xs: 4, sm: 0 }}
           >
-            <Button sx={{ ...styles.buttonSyling }} size="small">
-              Impressum
-            </Button>
-            <Button
-              sx={{
-                ml: { xs: 0, sm: 3 },
-                ...styles.buttonSyling,
-              }}
-              size="small"
-            >
-              Datenschutz
-            </Button>
-            <Button
-              sx={{
-                ml: { xs: 0, sm: 3 },
-                ...styles.buttonSyling,
-              }}
-              size="small"
-            >
-              Nutzungsbedingen
-            </Button>
+            <Link to="/imprint">
+              <Button sx={{ ...styles.buttonSyling }} size="small">
+                Impressum
+              </Button>
+            </Link>
+            <Link to="/privacy">
+              <Button
+                sx={{
+                  ml: { xs: 0, sm: 3 },
+                  ...styles.buttonSyling,
+                }}
+                size="small"
+              >
+                Datenschutz
+              </Button>
+            </Link>
+            <Link to="/terms">
+              <Button
+                sx={{
+                  ml: { xs: 0, sm: 3 },
+                  ...styles.buttonSyling,
+                }}
+                size="small"
+              >
+                Nutzungsbedingen
+              </Button>
+            </Link>
           </Grid>
           <Box
             display={{

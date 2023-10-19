@@ -81,6 +81,13 @@ export default function EnergyList({ tariffData }) {
       alignItems: "center",
       justifyContent: "center",
     },
+    h5: {
+      fontSize: {
+        xs: "12px",
+        sm: "20px",
+        lg: "26px",
+      },
+    },
   };
 
   return (
@@ -142,12 +149,22 @@ export default function EnergyList({ tariffData }) {
                 </Grid>
                 <Grid item md={4} xs={10}>
                   <Box sx={style.flexCenter} flexDirection="column">
-                    <Typography variant="h5" color="primary" sx={styles.h5}>
-                      {Math.round(data.price.workingPrice * 100) / 100}{" "}
-                      &euro;/month
+                    <Typography variant="h5" color="primary" sx={style.h5}>
+                      {(
+                        Math.round(
+                          (data?.price.basePrice + data.price.workingPrice) *
+                            100
+                        ) / 100
+                      )
+                        .toFixed(2)
+                        .replace(".", ",")}
+                      &euro;/Monat
                     </Typography>
                     <Typography variant="h6" sx={styles.h6}>
-                      {Math.round(data.price.basePrice * 100) / 100} &euro;/Jahr
+                      {(Math.round(data.price.workingPrice * 12 * 100) / 100)
+                        .toFixed(2)
+                        .replace(".", ",")}
+                      &euro;/Jahr
                     </Typography>
                   </Box>
                 </Grid>

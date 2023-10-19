@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import Current from "./current";
 import {
   Box,
   Grid,
@@ -48,8 +49,13 @@ export default function Calculator({ setTariffData, handleCalculate }) {
   const [switchPower, setSwitchPower] = useState(true);
   const [numPers, setNumPers] = useState(0);
   const [consumption, setConsumption] = useState(0);
+  const [provider, setProvider] = useState("");
+  const [dependantTariff, setDependantTariff] = useState("");
   const [city, setCity] = useState([]);
   const [selectedCity, setSelectedCity] = useState([]);
+  const [valid, setValid] = useState(false);
+  const [showCurrent, setShowCurrent] = useState(false);
+  const [showHero, setShowHero] = useState(false);
 
   const initState = {
     plz: "",
@@ -59,9 +65,6 @@ export default function Calculator({ setTariffData, handleCalculate }) {
 
   const style = {
     calculator: {
-      // backgroundImage: `url(${calcBg})`,
-      // backgroundPosition: "center",
-      // backgroundSize: "cover",
       p: 3,
       width: "90%",
       m: "auto",
@@ -83,25 +86,66 @@ export default function Calculator({ setTariffData, handleCalculate }) {
     }
   };
 
-  const handleClick = () => {
-    const { zipCode } = selectedCity;
+  const handleSelect = (event, data, name) => {
+    if (plz?.length) {
+      setShowCurrent(true);
+    } else {
+      setShowCurrent(false);
+    }
+    switch (name) {
+      case "plz":
+        setSelectedCity(data);
+        if (data && consumption && provider && dependantTariff) {
+          setShowHero(true);
+        }
+        break;
+      case "consumption":
+        setConsumption(data);
+        if (selectedCity && data && provider && dependantTariff) {
+          setShowHero(true);
+        }
+        break;
+      case "provider":
+        setProvider(data);
+        if (selectedCity && consumption && data && dependantTariff) {
+          setShowHero(true);
+        }
+        break;
+      case "dependantTariff":
+        setDependantTariff(data);
+        if (selectedCity && consumption && provider && data) {
+          setShowHero(true);
+        }
+        break;
+      default:
+        break;
+    }
+  };
 
-    data.fetchLocations(zipCode).then((res) => {
-      res?.[0].operatorIds.map((operatorId) =>
-        data
-          .fetchSwitchRates({
-            energy: "power",
-            consumption,
-            zipCode: zipCode,
-            city: res?.[0].city,
-            operatorId,
-          })
-          .then((tariffInfo) => {
-            setTariffData(tariffInfo?.switchRates);
-          })
-      );
-    });
-    handleCalculate();
+  const handleClick = () => {
+    setValid(true);
+
+    if (selectedCity && consumption && provider && dependantTariff) {
+      const { zipCode } = selectedCity;
+      data?.fetchLocations(zipCode)?.then((res) => {
+        res?.[0].operatorIds?.map((operatorId) =>
+          data
+            .fetchSwitchRates({
+              energy: "power",
+              consumption,
+              zipCode: zipCode,
+              city: res?.[0].city,
+              operatorId,
+            })
+            .then((tariffInfo) => {
+              setTariffData(tariffInfo?.switchRates);
+            })
+        );
+      });
+      handleCalculate();
+    } else {
+      return;
+    }
   };
 
   const handleChange = (e) => {
@@ -131,45 +175,6 @@ export default function Calculator({ setTariffData, handleCalculate }) {
 
   return (
     <Box sx={style.calculator}>
-      {/* <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        width="fit-content"
-        borderRadius={2}
-        border="2px solid #2c9b42"
-        sx={{ backgroundColor: "#fff" }}
-      >
-        <Grid
-          item
-          p={1}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Typography fontWeight={switchPower && 900}>Power</Typography>
-          <MuiSwitchLarge
-            onChange={() => setSwitchPower(!switchPower)}
-            color="default"
-          />
-          <Typography fontWeight={!switchPower && 900}>Gas</Typography>
-        </Grid>
-        <Grid
-          item
-          p={1}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          ml={5}
-        >
-          <Typography fontWeight={switchPrivate && 900}>Private</Typography>
-          <MuiSwitchLarge
-            onChange={() => setSwitchPrivate(!switchPrivate)}
-            color="default"
-          />
-          <Typography fontWeight={!switchPrivate && 900}>Business</Typography>
-        </Grid>
-      </Grid> */}
       <Grid
         container
         justifyContent="center"
@@ -183,14 +188,20 @@ export default function Calculator({ setTariffData, handleCalculate }) {
           <Autocomplete
             disableCloseOnSelect
             id="combo-box-demo"
+            name="plz"
             options={city}
             getOptionLabel={(option) => `${option.zipCode} ${option.city}`}
-            onChange={(event, value) => setSelectedCity(value)}
+            onChange={(event, value) => handleSelect(event, value, "plz")}
             onBlur={() => setCity([])}
             sx={{
               bgcolor: "background.light",
               borderRadius: "4px",
               width: "300px",
+              border: valid
+                ? plz?.length > 0
+                  ? "1px solid green"
+                  : "2px solid #C00000"
+                : "1px solid green",
             }}
             renderInput={(params) => (
               <StyledTextField
@@ -198,9 +209,8 @@ export default function Calculator({ setTariffData, handleCalculate }) {
                 name="plz"
                 sx={{
                   bgcolor: "background.light",
-                  borderRadius: "4px"
+                  borderRadius: "4px",
                 }}
-
                 value={plz}
                 onChange={handleChange}
                 placeholder="Postleitzahl "
@@ -210,82 +220,117 @@ export default function Calculator({ setTariffData, handleCalculate }) {
             )}
           />
         </Grid>
-        <Grid item p={1} ml={1} mr={1}>
-          <ButtonGroup>
-            <Button
-              variant="contained"
+        <Box
+          sx={{
+            border: valid
+              ? consumption
+                ? "0.5px solid lightgray"
+                : "2px solid #C00000"
+              : "0.5px solid lightgray",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            alignContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Grid item p={1} ml={1} mr={1}>
+            <ButtonGroup>
+              <Button
+                variant="contained"
+                sx={{
+                  bgcolor: "background.default",
+                  color: !switchPower ? "#e4c474" : "green",
+                }}
+                onClick={() => handlePersonSelect("remove")}
+              >
+                -
+              </Button>
+              {[
+                ...Array.from({ length: 4 }, (_, i) => {
+                  return (
+                    <Button
+                      variant="contained"
+                      key={i}
+                      sx={{
+                        bgcolor:
+                          numPers <= i
+                            ? "background.default"
+                            : "background.light",
+                        color:
+                          numPers <= i
+                            ? "text.secondary"
+                            : !switchPower
+                            ? "#e4c474"
+                            : "green",
+                      }}
+                      onClick={() => setNumPers(i + 1)}
+                    >
+                      <PersonIcon />
+                    </Button>
+                  );
+                }),
+              ]}
+              <Button
+                variant="contained"
+                sx={{
+                  bgcolor: "background.default",
+                  color: !switchPower ? "#e4c474" : "green",
+                }}
+                onClick={() => handlePersonSelect("add")}
+              >
+                +
+              </Button>
+            </ButtonGroup>
+          </Grid>
+          <Grid item p={1}>
+            <OutlinedInput
               sx={{
-                bgcolor: "background.default",
-                color: !switchPower ? "#e4c474" : "green",
+                bgcolor: "background.light",
+                borderRadius: "4px",
+                width: "12rem",
+                border: "1px solid green",
               }}
-              onClick={() => handlePersonSelect("remove")}
-            >
-              -
-            </Button>
-            {[
-              ...Array.from({ length: 4 }, (_, i) => {
-                return (
-                  <Button
-                    variant="contained"
-                    key={i}
-                    sx={{
-                      bgcolor:
-                        numPers <= i
-                          ? "background.default"
-                          : "background.light",
-                      color:
-                        numPers <= i
-                          ? "text.secondary"
-                          : !switchPower
-                          ? "#e4c474"
-                          : "green",
-                    }}
-                    onClick={() => setNumPers(i + 1)}
-                  >
-                    <PersonIcon />
-                  </Button>
-                );
-              }),
-            ]}
-            <Button
-              variant="contained"
-              sx={{
-                bgcolor: "background.default",
-                color: !switchPower ? "#e4c474" : "green",
-              }}
-              onClick={() => handlePersonSelect("add")}
-            >
-              +
-            </Button>
-          </ButtonGroup>
-        </Grid>
-        <Grid item p={1}>
-          <OutlinedInput
-            sx={{
-              bgcolor: "background.light",
-              borderRadius: "4px",
-              width: "12rem",
-            }}
-            type="number"
-            value={consumption}
-            size="small"
-            placeholder="KWh/Jahr"
-            endAdornment={
-              <InputAdornment position="end">KWh/Jahr</InputAdornment>
-            }
-            fullWidth
-          />
-        </Grid>
+              type="text"
+              value={consumption}
+              name="consumption"
+              onChange={(e) => handleSelect(e, e.target.value, "consumption")}
+              size="small"
+              placeholder="KWh/Jahr"
+              endAdornment={<Typography position="end">KWh/Jahr</Typography>}
+              fullWidth
+            />
+          </Grid>
+        </Box>
       </Grid>
-      <Button
-        variant="contained"
-        color={switchPower ? "primary" : "yellow"}
-        size="large"
-        onClick={handleClick}
-        sx={{ borderRadius: "20px", mt: 2 }}
-      >
-        Vergleiche
-      </Button>
+      {showCurrent && (
+        <Current StyledTextField={StyledTextField} handleSelect={handleSelect}/>
+        
+      )}
+      {showHero && (
+        <a href="#hero">
+          <Button
+            variant="contained"
+            color={switchPower ? "primary" : "yellow"}
+            size="large"
+            onClick={handleClick}
+            sx={{ borderRadius: "20px", mt: 2 }}
+          >
+            Vergleiche
+          </Button>
+        </a>
+      )}
+      {!showHero && (
+        <Button
+          variant="contained"
+          color={switchPower ? "primary" : "yellow"}
+          size="large"
+          onClick={handleClick}
+          sx={{ borderRadius: "20px", mt: 2 }}
+        >
+          Vergleiche
+        </Button>
+      )}
     </Box>
   );
 }

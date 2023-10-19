@@ -366,17 +366,29 @@ export default function MobileList() {
                           <Typography
                             sx={{ ...styles.p, textAlign: "center " }}
                           >
-                            Grundgebühr: {tariff?.base_price}€/month
+                            Grundgebühr:
+                            {Math.round(tariff?.base_price)
+                              .toFixed(2)
+                              .replace(".", ",")}
+                            €/month
                           </Typography>
                           <Typography
                             sx={{ ...styles.p, textAlign: "center " }}
                           >
-                            Girokonto: {tariff?.girocard_fee}€/Jahr
+                            Girokonto:{" "}
+                            {Math.round(tariff?.girocard_fee)
+                              .toFixed(2)
+                              .replace(".", ",")}
+                            €/Jahr
                           </Typography>
                           <Typography
                             sx={{ ...styles.p, textAlign: "center " }}
                           >
-                            Kreditkarte: {tariff?.creditcard_fee}€/Jahr
+                            Kreditkarte:{" "}
+                            {Math.round(tariff?.creditcard_fee)
+                              .toFixed(2)
+                              .replace(".", ",")}
+                            €/Jahr
                           </Typography>
                         </Grid>
                         <Divider
@@ -410,7 +422,10 @@ export default function MobileList() {
                           <Typography
                             sx={{ ...styles.p, textAlign: "center " }}
                           >
-                            {tariff?.total_price} €/Jahr
+                            {Math.round(tariff?.total_price)
+                              .toFixed(2)
+                              .replace(".", ",")}
+                            €/Jahr
                           </Typography>
                         </Grid>
                         <Grid

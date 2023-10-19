@@ -221,10 +221,16 @@ const MobileAccordion = () => {
                               Tarifgebühr
                             </Typography>
                             <Typography sx={styles.p}>
-                              {tariff?.base_price}€/Monat
+                              {Math.round(tariff?.base_price)
+                                .toFixed(2)
+                                .replace(".", ",")}
+                              €/Monat
                             </Typography>
                             <Typography sx={styles.p}>
-                              {tariff?.setup_cost}€ Grundgebühr
+                              {Math.round(tariff?.setup_cost)
+                                .toFixed(2)
+                                .replace(".", ",")}
+                              € Grundgebühr
                             </Typography>
                           </Box>
                         </Grid>
@@ -251,10 +257,16 @@ const MobileAccordion = () => {
                             Tarifgebühr
                           </Typography>
                           <Typography sx={styles.p}>
-                            {tariff?.base_price}€/Monat
+                            {Math.round(tariff?.base_price)
+                              .toFixed(2)
+                              .replace(".", ",")}
+                            €/Monat
                           </Typography>
                           <Typography sx={styles.p}>
-                            {tariff?.setup_cost}€ Grundgebühr
+                            {Math.round(tariff?.setup_cost)
+                              .toFixed(2)
+                              .replace(".", ",")}
+                            € Grundgebühr
                           </Typography>
                         </Box>
                       </Grid>

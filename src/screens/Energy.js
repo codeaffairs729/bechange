@@ -19,7 +19,7 @@ export default function Energy() {
   };
 
   return (
-    <Box sx={{background:"#fffafa"}}>
+    <Box sx={{ background: "#fffafa" }}>
       <Parallax bgImage={"/cover.png"} strength={500}>
         <Box sx={style.container}>
           <Calculator
@@ -28,7 +28,8 @@ export default function Energy() {
           />
         </Box>
       </Parallax>
-      <Box mt={5} mb={5}>
+      <Box id="hero" sx={{ height: "80px" }}></Box>
+      <Box mb={5} id="hero">
         <Container maxWidth="lg">
           <AdSection
             title={"Dein Impact fur Energie"}

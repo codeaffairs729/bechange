@@ -49,16 +49,23 @@ export default function EnergyDesc({
           </Typography>
           <Box sx={{ mt: 1 }}>
             <Typography sx={styles.p}>
-              Grundpreis: {data?.price.basePrice} €/Monat
+              Grundpreis:{" "}
+              {(data?.price.basePrice / 12).toFixed(2).replace(".", ",")}
+              /€/Monat
             </Typography>
             <Typography sx={styles.p}>
-              Arbeitspreis: {data?.price.workingPrice} €/Monat
+              Arbeitspreis:{" "}
+              {(data?.price.workingPrice).toFixed(2).replace(".", ",")} €/Monat
             </Typography>
             <Typography sx={styles.p}>
               Gesamtpreis:
-              {Math.round(
-                (data?.price.basePrice + data?.price.workingPrice) * 100
-              ) / 100}
+              {(
+                Math.round(
+                  (data?.price.basePrice + data?.price.workingPrice) * 100
+                ) / 100
+              )
+                .toFixed(2)
+                .replace(".", ",")}
               €/Monat
             </Typography>
             <Link onClick={() => setOpenModal(true)}>

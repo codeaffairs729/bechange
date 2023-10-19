@@ -14,12 +14,8 @@ export default function EnergyDesc({
   setExpanded,
   expanded,
   target,
-  labelName,
 }) {
   const [openModal, setOpenModal] = useState(false);
-
-  console.log("labelName des", labelName);
-
   const isLabel = [
     "ÖKO-TEST AG",
     "Öko-Institut e.V.",
@@ -90,7 +86,6 @@ export default function EnergyDesc({
                 size={"100%"}
                 showLabel={true}
                 index={index}
-                type={"details"}
               />
             </Box>
             <Box>
@@ -132,25 +127,28 @@ export default function EnergyDesc({
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <Typography sx={styles.h2} mb={1}></Typography>
-          <Grid container xs={12}>
-            {data?.labels.map((label, i) => {
-              return (
-                // <Typography key={i} sx={styles.p}>
-                //   {label.authority}
-                // </Typography>
-
-                <Box item xs={6} p={1}>
-                  {isLabel.includes(label.authority) && (
+          <Box
+            px={2}
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              justifyItems: "flex-start",
+            }}
+          >
+            {data?.labels.map(
+              (label, i) =>
+                isLabel.includes(label.authority) && (
+                  <Box>
                     <img
                       src={`./label/${label.authority}.png`}
                       style={{ width: "80px" }}
                       alt={`${label.authority}`}
                     />
-                  )}
-                </Box>
-              );
-            })}
-          </Grid>
+                  </Box>
+                )
+            )}
+          </Box>
         </Grid>
         <Grid
           item

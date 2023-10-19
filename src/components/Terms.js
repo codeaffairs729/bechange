@@ -211,7 +211,10 @@ const Terms = () => {
           ...style.h3_2,
         }}
       >
-        <Link to="https://ec.europa.eu/consumers/odr">
+        <Link
+          to="https://ec.europa.eu/consumers/odr"
+          style={{ wordBreak: "break-all" }}
+        >
           https://ec.europa.eu/consumers/odr
         </Link>
         &nbsp;&nbsp;abgerufen werden kann.

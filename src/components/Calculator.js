@@ -101,7 +101,7 @@ export default function Calculator({ setTariffData, handleCalculate }) {
         break;
       case "consumption":
         setConsumption(data);
-        if (selectedCity && data && provider && dependantTariff) {
+        if (selectedCity && consumption && provider && dependantTariff) {
           setShowHero(true);
         }
         break;
@@ -161,12 +161,24 @@ export default function Calculator({ setTariffData, handleCalculate }) {
   useEffect(() => {
     switch (numPers) {
       case 1:
+        if (selectedCity && numPers && provider && dependantTariff) {
+          setShowHero(true);
+        }
         return setConsumption(1600);
       case 2:
+        if (selectedCity && numPers && provider && dependantTariff) {
+          setShowHero(true);
+        }
         return setConsumption(2600);
       case 3:
+        if (selectedCity && numPers && provider && dependantTariff) {
+          setShowHero(true);
+        }
         return setConsumption(3300);
       case 4:
+        if (selectedCity && numPers && provider && dependantTariff) {
+          setShowHero(true);
+        }
         return setConsumption(3900);
       default:
         return setConsumption(0);
@@ -183,6 +195,7 @@ export default function Calculator({ setTariffData, handleCalculate }) {
         width="fit-content"
         borderRadius={2}
         border="2px solid #2c9b42"
+        p={1}
       >
         <Grid item p={1}>
           <Autocomplete
@@ -195,7 +208,7 @@ export default function Calculator({ setTariffData, handleCalculate }) {
             onBlur={() => setCity([])}
             sx={{
               bgcolor: "background.light",
-              borderRadius: "4px",
+              borderRadius: "6px",
               width: "300px",
               border: valid
                 ? plz?.length > 0
@@ -221,12 +234,13 @@ export default function Calculator({ setTariffData, handleCalculate }) {
           />
         </Grid>
         <Box
+          borderRadius={2}
           sx={{
             border: valid
               ? consumption
-                ? "0.5px solid lightgray"
+                ? "none"
                 : "2px solid #C00000"
-              : "0.5px solid lightgray",
+              : "none",
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "center",
@@ -234,7 +248,7 @@ export default function Calculator({ setTariffData, handleCalculate }) {
             alignItems: "center",
           }}
         >
-          <Grid item p={1} ml={1} mr={1}>
+          <Grid item mr={1}>
             <ButtonGroup>
               <Button
                 variant="contained"
@@ -283,18 +297,16 @@ export default function Calculator({ setTariffData, handleCalculate }) {
               </Button>
             </ButtonGroup>
           </Grid>
-          <Grid item p={1}>
+          <Grid item>
             <OutlinedInput
               sx={{
                 bgcolor: "background.light",
                 borderRadius: "4px",
                 width: "12rem",
-                border: "1px solid green",
               }}
               type="text"
               value={consumption}
               name="consumption"
-              onChange={(e) => handleSelect(e, e.target.value, "consumption")}
               size="small"
               placeholder="KWh/Jahr"
               endAdornment={<Typography position="end">KWh/Jahr</Typography>}
@@ -304,8 +316,10 @@ export default function Calculator({ setTariffData, handleCalculate }) {
         </Box>
       </Grid>
       {showCurrent && (
-        <Current StyledTextField={StyledTextField} handleSelect={handleSelect}/>
-        
+        <Current
+          StyledTextField={StyledTextField}
+          handleSelect={handleSelect}
+        />
       )}
       {showHero && (
         <a href="#hero">

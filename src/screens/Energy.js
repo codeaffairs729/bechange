@@ -28,8 +28,7 @@ export default function Energy() {
           />
         </Box>
       </Parallax>
-      <Box id="hero" sx={{ height: "80px" }}></Box>
-      <Box mb={5} id="hero">
+      <Box mb={5} id="hero" sx={{ minHeight: "80vh" }}>
         <Container maxWidth="lg">
           <AdSection
             title={"Dein Impact fur Energie"}

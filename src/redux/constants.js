@@ -5,6 +5,7 @@ export const API_BANKS = 'banks';
 export const API_BANKING_TARIFFS = 'banking-tariffs';
 export const API_ARTICLES = 'articles';
 export const API_ARTICLE = 'article';
+export const API_SECTION = 'section';
 
 // Actions
 export const SET_ALERT = 'SET_ALERT';
@@ -21,3 +22,5 @@ export const GET_ARTICLES_SUCCESS = 'GET_ARTICLES_SUCCESS';
 export const GET_ARTICLES_FAIL = 'GET_ARTICLE_FAIL';
 export const GET_ARTICLE_SUCCESS = 'GET_ARTICLE_SUCCESS';
 export const GET_ARTICLE_FAIL = 'GET_ARTICLE_FAIL';
+export const GET_SECTION_SUCCESS = 'GET_SECTION_SUCCESS';
+export const GET_SECTION_FAIL = 'GET_SECTION_FAIL';

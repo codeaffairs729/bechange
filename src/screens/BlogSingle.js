@@ -38,9 +38,9 @@ export default function BlogSingle() {
   }, [article, setTags]);
 
   return loading ? (
-    <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <CircularProgress />
-        </Box>
+    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <CircularProgress />
+    </Box>
   ) : (
     <>
       <Jumbotron
@@ -54,6 +54,7 @@ export default function BlogSingle() {
             ? 'Mobilfunk'
             : 'Allgemein'
         }
+        cover={article?.cover}
       />
       <Container sx={style.container}>
         <Box sx={style.head}>

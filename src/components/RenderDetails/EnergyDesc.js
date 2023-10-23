@@ -51,7 +51,7 @@ export default function EnergyDesc({
             <Typography sx={styles.p}>
               Grundpreis:{" "}
               {(data?.price.basePrice / 12).toFixed(2).replace(".", ",")}
-              /€/Monat
+              €/Monat
             </Typography>
             <Typography sx={styles.p}>
               Arbeitspreis:{" "}
